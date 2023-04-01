@@ -14,9 +14,6 @@
 @endsection
 
 @section('css')
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../../logo.ico" />
-
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css" />
 
@@ -183,25 +180,25 @@
                                     </thead>
                                     <tbody>
                                         <tr data-node-id="1" class="table-danger">
-                                            <td><a href="#">Aspek 1</a></td>
+                                            <td><a href="#"> Aspek 1</a></td>
                                             <td>10,000</td>
                                             <td>9,000</td>
                                             <td>90%</td>
                                         </tr>
                                         <tr data-node-id="1.1" data-node-pid="1" class="table-info">
-                                            <td><a href="#">Indikator 1</a></td>
+                                            <td><a href="#"> Indikator 1</a></td>
                                             <td>10,000</td>
                                             <td>9,000</td>
                                             <td>90%</td>
                                         </tr>
                                         <tr data-node-id="1.1.1" data-node-pid="1.1" class="table-warning">
-                                            <td><a href="#">Parameter 1</a></td>
+                                            <td><a href="#"> Parameter 1</a></td>
                                             <td>10,000</td>
                                             <td>9,000</td>
                                             <td>90%</td>
                                         </tr>
                                         <tr data-node-id="1.1.1.1" data-node-pid="1.1.1">
-                                            <td><a href="#">Faktor 1</a></td>
+                                            <td><a href="#"> Faktor 1</a></td>
                                             <td>
                                                 <a class="btn btn-sm btn-icon text-info" data-bs-toggle="modal"
                                                     data-bs-target="#staticBackdrop-1">

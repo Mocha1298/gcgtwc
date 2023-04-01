@@ -10,13 +10,10 @@
 @section('link3', '/user')
 @section('link4', '/report')
 @section('greeting')
-    <h1>Selamat Datang</h1>
+    <a href="/report" class="mt-4 btn btn-danger d-block rounded">Go to Summary</a>
 @endsection
 
 @section('css')
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/logo.ico" />
-
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="/assets/css/core/libs.min.css" />
 
@@ -73,173 +70,158 @@
 @endsection
 
 @section('main')
-    <div class="conatiner-fluid content-inner mt-n5 py-0">
-        <div class="row">
-            {{-- DANGER --}}
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">Aspek 1</div>
-                        <div class="d-flex align-items-center justify-content-between mt-3">
-                            <div>
-                                <h2 class="counter">0.25</h2>
-                                25%
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="row row-cols-1">
+                <div class="overflow-hidden d-slider1 ">
+                    <ul class="p-0 m-0 mb-2 swiper-wrapper list-inline">
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="700">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-01"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-warning"
+                                        data-min-value="0" data-max-value="100" data-value="60" data-type="percent">
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Aspek 1</p>
+                                        <h4 class="counter">60%</h4>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="border  bg-soft-danger rounded p-3">
-                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.24512 14.7815L10.2383 10.8914L13.6524 13.5733L16.5815 9.79297"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <circle cx="19.9954" cy="4.20027" r="1.9222" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                    <path
-                                        d="M14.9248 3.12012H7.65704C4.6456 3.12012 2.77832 5.25284 2.77832 8.26428V16.3467C2.77832 19.3581 4.60898 21.4817 7.65704 21.4817H16.2612C19.2726 21.4817 21.1399 19.3581 21.1399 16.3467V9.30776"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="800">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-02"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-success"
+                                        data-min-value="0" data-max-value="100" data-value="80" data-type="percent">
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Aspek 2</p>
+                                        <h4 class="counter">80%</h4>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-4">
-                            <div class="progress bg-soft-danger shadow-none w-100" style="height: 6px">
-                                <div class="progress-bar bg-danger" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="900">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-03"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-danger"
+                                        data-min-value="0" data-max-value="100" data-value="20" data-type="percent">
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Aspek 3</p>
+                                        <h4 class="counter">20%</h4>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="1000">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-04"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-info"
+                                        data-min-value="0" data-max-value="100" data-value="60" data-type="percent">
+                                        <svg class="card-slie-arrow icon-24" width="24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Revenue</p>
+                                        <h4 class="counter">$742K</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="1100">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-05"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-primary"
+                                        data-min-value="0" data-max-value="100" data-value="50" data-type="percent">
+                                        <svg class="card-slie-arrow icon-24" width="24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Net Income</p>
+                                        <h4 class="counter">$150K</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="1200">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-06"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-info"
+                                        data-min-value="0" data-max-value="100" data-value="40" data-type="percent">
+                                        <svg class="card-slie-arrow icon-24" width="24" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Today</p>
+                                        <h4 class="counter">$4600</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="swiper-slide card card-slide" data-aos="fade-up" data-aos-delay="1300">
+                            <div class="card-body">
+                                <div class="progress-widget">
+                                    <div id="circle-progress-07"
+                                        class="text-center circle-progress-01 circle-progress circle-progress-primary"
+                                        data-min-value="0" data-max-value="100" data-value="30" data-type="percent">
+                                        <svg class="card-slie-arrow icon-24 " width="24" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="progress-detail">
+                                        <p class="mb-2">Members</p>
+                                        <h4 class="counter">11.2M</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="swiper-button swiper-button-next"></div>
+                    <div class="swiper-button swiper-button-prev"></div>
                 </div>
             </div>
-            {{-- INFO --}}
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">Aspek 2</div>
-                        <div class="d-flex align-items-center justify-content-between mt-3">
-                            <div>
-                                <h2 class="counter">0.5</h2>
-                                50%
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="counter mb-3" style="visibility: visible;">Total: 62.2%</h2>
+                    <p class="mb-2">Aspek Anda</p>
+                    <h6>25%</h6>
+                    <div class="mt-3">
+                        <div class="pb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <p class="mb-0">Indikator 1</p>
+                                <h4>25%</h4>
                             </div>
-                            <div class="border bg-soft-info rounded p-3">
-                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.24512 14.7815L10.2383 10.8914L13.6524 13.5733L16.5815 9.79297"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <circle cx="19.9954" cy="4.20027" r="1.9222" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                    <path
-                                        d="M14.9248 3.12012H7.65704C4.6456 3.12012 2.77832 5.25284 2.77832 8.26428V16.3467C2.77832 19.3581 4.60898 21.4817 7.65704 21.4817H16.2612C19.2726 21.4817 21.1399 19.3581 21.1399 16.3467V9.30776"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <div class="progress bg-soft-info shadow-none w-100" style="height: 6px">
+                            <div class="progress bg-soft-info shadow-none w-100" style="height: 10px">
                                 <div class="progress-bar bg-info" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 60%; transition: width 2s ease 0s;"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Primary --}}
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">Aspek 3</div>
-                        <div class="d-flex align-items-center justify-content-between mt-3">
-                            <div>
-                                <h2 class="counter">.75</h2>
-                                75%
+                        <div class="pb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <p class="mb-0">Indikator 2</p>
+                                <h4>25%</h4>
                             </div>
-                            <div class="border  bg-soft-primary rounded p-3">
-                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.24512 14.7815L10.2383 10.8914L13.6524 13.5733L16.5815 9.79297"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <circle cx="19.9954" cy="4.20027" r="1.9222" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                    <path
-                                        d="M14.9248 3.12012H7.65704C4.6456 3.12012 2.77832 5.25284 2.77832 8.26428V16.3467C2.77832 19.3581 4.60898 21.4817 7.65704 21.4817H16.2612C19.2726 21.4817 21.1399 19.3581 21.1399 16.3467V9.30776"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <div class="progress bg-soft-primary shadow-none w-100" style="height: 6px">
-                                <div class="progress-bar bg-primary" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- SUCCESS --}}
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">Aspek 4</div>
-                        <div class="d-flex align-items-center justify-content-between mt-3">
-                            <div>
-                                <h2 class="counter">1</h2>
-                                100%
-                            </div>
-                            <div class="border bg-soft-success rounded p-3">
-                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.24512 14.7815L10.2383 10.8914L13.6524 13.5733L16.5815 9.79297"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <circle cx="19.9954" cy="4.20027" r="1.9222" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                    <path
-                                        d="M14.9248 3.12012H7.65704C4.6456 3.12012 2.77832 5.25284 2.77832 8.26428V16.3467C2.77832 19.3581 4.60898 21.4817 7.65704 21.4817H16.2612C19.2726 21.4817 21.1399 19.3581 21.1399 16.3467V9.30776"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <div class="progress bg-soft-success shadow-none w-100" style="height: 6px">
+                            <div class="progress bg-soft-success shadow-none w-100" style="height: 10px">
                                 <div class="progress-bar bg-success" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="counter mb-3" style="visibility: visible;">Total: 62.2%</h2>
-                        <p class="mb-2">Aspek Anda</p>
-                        <h6>25%</h6>
-                        <a href="/report" class="mt-4 btn btn-danger d-block rounded">Go to Summary</a>
-                        <div class="mt-3">
-                            <div class="pb-3">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <p class="mb-0">Indikator 1</p>
-                                    <h4>25%</h4>
-                                </div>
-                                <div class="progress bg-soft-info shadow-none w-100" style="height: 10px">
-                                    <div class="progress-bar bg-info" data-toggle="progress-bar" role="progressbar"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
-                                        style="width: 60%; transition: width 2s ease 0s;"></div>
-                                </div>
-                            </div>
-                            <div class="pb-3">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <p class="mb-0">Indikator 2</p>
-                                    <h4>25%</h4>
-                                </div>
-                                <div class="progress bg-soft-success shadow-none w-100" style="height: 10px">
-                                    <div class="progress-bar bg-success" data-toggle="progress-bar" role="progressbar"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
-                                        style="width: 80%; transition: width 2s ease 0s;"></div>
-                                </div>
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 80%; transition: width 2s ease 0s;"></div>
                             </div>
                         </div>
                     </div>
