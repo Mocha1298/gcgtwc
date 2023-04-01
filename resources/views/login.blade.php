@@ -43,12 +43,15 @@
     <div class="wrapper">
         <section class="login-content">
             <div class="row m-0 align-items-center bg-white vh-100">
+                <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
+                    <img src="/_MGM7327.jpg" class="img-fluid gradient-main animated-scaleX" alt="images">
+                </div>
                 <div class="col-md-6">
                     <div class="row justify-content-center">
-                        <div class="col-md-10">
+                        <div class="col-md-6">
                             <div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
                                 <div class="card-body">
-                                    <a href="/dashboard/index.html" class="navbar-brand d-flex align-items-center mb-3">
+                                    <a href="#" class="navbar-brand d-flex align-items-center mb-3">
                                         <!--Logo start-->
                                         <!--logo End-->
                                         <!--Logo start-->
@@ -61,11 +64,11 @@
                                             </div>
                                         </div>
                                         <!--logo End-->
-                                        <h4 class="logo-title ms-3">GCG TWC</h4>
+                                        <h6 class="logo-title ms-5">GCG TWC</h6>
                                     </a>
-                                    <h2 class="mb-2 text-center">Sign In</h2>
-                                    <p class="text-center">Login to start your work.</p>
-                                    <form method="get" action="/">
+                                    <h5 class="mb-2 text-center">Sign In</h5>
+                                    <p style="font-size: 15px" class="text-center">Login to start your work.</p>
+                                    <form method="get" action="/" style="font-size: 13px">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
@@ -100,7 +103,7 @@
                                                     <label class="form-check-label" for="customCheck1">Remember
                                                         Me</label>
                                                 </div>
-                                                <a href="recoverpw.html">Forgot Password?</a>
+                                                <a href="#">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center">
@@ -114,10 +117,6 @@
                     <div class="sign-bg">
                         <img src="/logo.png" alt="" width="280px" srcset="" style="opacity: 0.05;">
                     </div>
-                </div>
-                <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-                    <img src="/assets/images/auth/01.png" class="img-fluid gradient-main animated-scaleX"
-                        alt="images">
                 </div>
             </div>
         </section>
