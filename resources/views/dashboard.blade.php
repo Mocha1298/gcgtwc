@@ -198,30 +198,45 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="counter mb-3" style="visibility: visible;">Total: 62.2%</h2>
-                    <p class="mb-2">Aspek Anda</p>
-                    <h6>25%</h6>
-                    <div class="mt-3">
-                        <div class="pb-3">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <p class="mb-0">Indikator 1</p>
-                                <h4>25%</h4>
-                            </div>
-                            <div class="progress bg-soft-info shadow-none w-100" style="height: 10px">
-                                <div class="progress-bar bg-info" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: 60%; transition: width 2s ease 0s;"></div>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="counter mb-3" style="visibility: visible;">Total: 62.2%</h2>
+                            <p class="mb-2">Aspek Anda</p>
+                            <h6>25%</h6>
                         </div>
-                        <div class="pb-3">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <p class="mb-0">Indikator 2</p>
-                                <h4>25%</h4>
+                        <div class="col-8">
+                            <div class="pb-3">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="mb-0">Aspek 1</p>
+                                    <h4>60%</h4>
+                                </div>
+                                <div class="progress bg-soft-warning shadow-none w-100" style="height: 10px">
+                                    <div class="progress-bar bg-warning" data-toggle="progress-bar" role="progressbar"
+                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 60%; transition: width 2s ease 0s;"></div>
+                                </div>
                             </div>
-                            <div class="progress bg-soft-success shadow-none w-100" style="height: 10px">
-                                <div class="progress-bar bg-success" data-toggle="progress-bar" role="progressbar"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: 80%; transition: width 2s ease 0s;"></div>
+                            <div class="pb-3">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="mb-0">Aspek 2</p>
+                                    <h4>80%</h4>
+                                </div>
+                                <div class="progress bg-soft-success shadow-none w-100" style="height: 10px">
+                                    <div class="progress-bar bg-success" data-toggle="progress-bar" role="progressbar"
+                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 80%; transition: width 2s ease 0s;"></div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="mb-0">Aspek 3</p>
+                                    <h4>20%</h4>
+                                </div>
+                                <div class="progress bg-soft-danger shadow-none w-100" style="height: 10px">
+                                    <div class="progress-bar bg-danger" data-toggle="progress-bar" role="progressbar"
+                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 80%; transition: width 2s ease 0s;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
