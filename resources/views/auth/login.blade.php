@@ -68,21 +68,27 @@
                                     </a>
                                     <h5 class="mb-2 text-center">Sign In</h5>
                                     <p style="font-size: 15px" class="text-center">Login to start your work.</p>
-                                    <form method="get" action="/" style="font-size: 13px">
+                                    <form method="POST" action="{{ route('login') }}" style="font-size: 13px">
                                         <div class="row">
+                                            @csrf
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="email" class="form-label">Email</label>
                                                     <input type="email" class="form-control" id="email"
-                                                        aria-describedby="email" placeholder="Email">
+                                                        class="block mt-1 w-full" type="email" name="email"
+                                                        :value="old('email')" required autofocus
+                                                        autocomplete="username">
+                                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="password" class="form-label">Password</label>
                                                     <input type="password" class="form-control" id="password"
-                                                        aria-describedby="password" placeholder="Password">
+                                                        name="password" aria-describedby="password" required
+                                                        autocomplete="current-password" placeholder="Password">
                                                 </div>
+                                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
@@ -103,7 +109,12 @@
                                                     <label class="form-check-label" for="customCheck1">Remember
                                                         Me</label>
                                                 </div>
-                                                <a href="#">Forgot Password?</a>
+                                                @if (Route::has('password.request'))
+                                                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                                        href="{{ route('password.request') }}">
+                                                        {{ __('Forgot password?') }}
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center">

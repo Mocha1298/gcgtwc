@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aspect extends Model
 {
+    protected $table = 'aspects';
     use HasFactory;
 }
