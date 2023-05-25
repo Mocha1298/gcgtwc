@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_aspek')->unsigned();
+            $table->integer('id_master')->unsigned();
             $table->string('tindakan');
-            $table->integer('id_user');
+            $table->integer('id_user')->unsigned();
             $table->timestamps();
         });
     }

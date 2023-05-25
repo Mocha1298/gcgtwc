@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string("role")->nullable();
-            $table->integer("id_aspek")->nullable();
+            $table->integer("id_master")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

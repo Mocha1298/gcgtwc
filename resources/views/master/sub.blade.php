@@ -32,6 +32,21 @@
 
     <!-- RTL Css -->
     <link rel="stylesheet" href="../../assets/css/rtl.min.css" />
+    <style>
+        .form-check-input {
+            border-color: #00A7E6;
+
+            &:checked {
+                border-color: #00A7E6;
+                background-color: #00A7E6 !important;
+            }
+
+            &:focus {
+                border-color: #00A7E6 !important;
+                background-color: #fff;
+            }
+        }
+    </style>
 @endsection
 
 @section('script')
@@ -76,7 +91,8 @@
                             <h4 class="card-title">List Unsur Pemenuhan</h4>
                         </div>
                         <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3"
-                            data-bs-toggle="modal" data-bs-target="#staticBackdrop-1">
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop-1"
+                            style="border:none;background: #00A7E6;">
                             <i class="btn-inner">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -96,61 +112,72 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="text" class="form-label">Nama Sub</label>
-                                            <input type="text" class="form-control" id="text"
-                                                aria-describedby="text" placeholder="Nama Sub">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="text" class="form-label">Pilih Faktor</label>
+                                        <form action="/subfaktor" method="post">
+                                            @csrf
                                             <div class="form-group">
-                                                <select class="form-select" id="exampleFormControlSelect1" onchange="cek()">
-                                                    <option selected="" disabled="">Pilih Faktor</option>
-                                                    <option value="1">Faktor 1</option>
+                                                <label for="text" class="form-label">Pilih Faktor</label>
+                                                <div class="form-group">
+                                                    <select name="id_parent" class="form-select"
+                                                        id="exampleFormControlSelect1" onchange="cek()">
+                                                        <option selected="" disabled="">Pilih Faktor</option>
+                                                        @foreach ($faktor as $item)
+                                                            <option value="{{ $item->id }}">Faktor {{ $item->urutan }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text" class="form-label">Nama Sub</label>
+                                                <input name="nama" type="text" class="form-control" id="text"
+                                                    aria-describedby="text" placeholder="Nama Sub">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="choices-single-default">Sistem
+                                                    Penilaian</label>
+                                                <select class="form-select" data-trigger="" name="isian"
+                                                    id="choices-single-default">
+                                                    <option disabled value="">Pilih Salah Satu</option>
+                                                    <option value="2">2 Pilihan (0,1)</option>
+                                                    <option value="5">5 Pilihan (0,0.25,0.5,0.75,1)</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="text" class="form-label">Eviden</label>
-                                            <div class="form-check d-block">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault11">
-                                                <label class="form-check-label" for="flexCheckDefault11">
-                                                    Dokumen
-                                                </label>
+                                            <div class="form-group">
+                                                <label for="text" class="form-label">Eviden</label>
+                                                <div class="form-check d-block">
+                                                    <input name="dokumen" class="form-check-input" type="checkbox"
+                                                        value="1" id="dokumen">
+                                                    <label class="form-check-label" for="dokumen">
+                                                        Dokumen
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-block">
+                                                    <input name="kuesioner" class="form-check-input" type="checkbox"
+                                                        value="1" id="kuesioner">
+                                                    <label class="form-check-label" for="kuesioner">
+                                                        Kuesioner
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-block">
+                                                    <input name="wawancara" class="form-check-input" type="checkbox"
+                                                        value="1" id="wawancara">
+                                                    <label class="form-check-label" for="wawancara">
+                                                        Wawancara
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-block">
+                                                    <input name="observasi" class="form-check-input" type="checkbox"
+                                                        value="1" id="observasi">
+                                                    <label class="form-check-label" for="observasi">
+                                                        Observasi
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div class="form-check d-block">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault11">
-                                                <label class="form-check-label" for="flexCheckDefault11">
-                                                    Kuesioner
-                                                </label>
+                                            <div class="text-start mt-2">
+                                                <button type="submit" class="btn btn-primary"
+                                                    style="border:none;background: #00A7E6;">Save</button>
                                             </div>
-                                            <div class="form-check d-block">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault11">
-                                                <label class="form-check-label" for="flexCheckDefault11">
-                                                    Wawancara
-                                                </label>
-                                            </div>
-                                            <div class="form-check d-block">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault11">
-                                                <label class="form-check-label" for="flexCheckDefault11">
-                                                    Observasi
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="text" class="form-label">Catatan</label>
-                                            <input type="text" class="form-control" id="text"
-                                                aria-describedby="text" placeholder="Catatan">
-                                        </div>
-                                        <div class="text-start mt-2">
-                                            <button type="button" class="btn btn-primary"
-                                                data-bs-dismiss="modal">Save</button>
-                                            <button type="button" class="btn btn-danger">Cancel</button>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -158,96 +185,107 @@
                     </div>
                     <div class="card-body px-0">
                         <div class="table-responsive">
-                            <table id="user-list-table" class="table table-striped" role="grid"
-                                data-bs-toggle="data-table">
+                            <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
                                 <thead>
                                     <tr class="ligth">
                                         <th>#</th>
                                         <th>Nama</th>
                                         <th>Parent</th>
                                         <th>Eviden</th>
+                                        <th>Penilaian</th>
                                         <th style="min-width: 100px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Unsur 1</td>
-                                        <td>Faktor 1</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Dokumen" href="#">
-                                                D
-                                            </a>
-                                            <a class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Kuesioner" href="#">
-                                                K
-                                            </a>
-                                            <a class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Wawancara" href="#">
-                                                W
-                                            </a>
-                                            <a class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Observasi" href="#">
-                                                O
-                                            </a>
-                                            {{-- <a class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Kuesioner" href="#">
-                                                    K
-                                                </a>
-                                                <a class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Wawancara" href="#">
-                                                    W
-                                                </a>
-                                                <a class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Observasi" href="#">
-                                                    O
-                                                </a> --}}
-                                        </td>
-                                        <td>
-                                            <div class="flex align-items-center list-user-action">
-                                                <a class="btn btn-sm btn-icon text-primary" data-bs-toggle="tooltip"
-                                                    href="#" aria-label="Edit" data-bs-original-title="Edit">
-                                                    <span class="btn-inner">
-                                                        <svg class="icon-20" width="20" viewBox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            <path d="M15.1655 4.60254L19.7315 9.16854"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>
-                                                    </span>
-                                                </a>
-                                                <a class="btn btn-sm btn-icon text-danger " data-bs-toggle="tooltip"
-                                                    href="#" aria-label="Delete" data-bs-original-title="Delete">
-                                                    <span class="btn-inner">
-                                                        <svg class="icon-20" width="20" viewBox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                            stroke="currentColor">
-                                                            <path
-                                                                d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            <path d="M20.708 6.23975H3.75" stroke="currentColor"
-                                                                stroke-width="1.5" stroke-linecap="round"
-                                                                stroke-linejoin="round"></path>
-                                                            <path
-                                                                d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($master as $item)
+                                        <tr>
+                                            <td>{{ $item->urutan }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>
+                                                @foreach ($faktor as $option)
+                                                    @if ($item->id_parent == $option->id)
+                                                        Faktor {{ $option->urutan }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @if ($item->dokumen == true)
+                                                    <a style="border:none;background: #00A7E6;color:white"
+                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Dokumen" href="#">
+                                                        D
+                                                    </a>
+                                                @endif
+                                                @if ($item->kuesioner == true)
+                                                    <a style="border:none;background: #00A7E6;color:white"
+                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Kuesioner" href="#">
+                                                        K
+                                                    </a>
+                                                @endif
+                                                @if ($item->wawancara == true)
+                                                    <a style="border:none;background: #00A7E6;color:white"
+                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Wawancara" href="#">
+                                                        W
+                                                    </a>
+                                                @endif
+                                                @if ($item->observasi == true)
+                                                    <a style="border:none;background: #00A7E6;color:white"
+                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Observasi" href="#">
+                                                        O
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->isian }} Pilihan</td>
+                                            <td>
+                                                <div class="flex align-items-center list-user-action">
+                                                    <a class="btn btn-sm btn-icon text-primary" data-bs-toggle="tooltip"
+                                                        href="/edit/subfaktor/{{ $item->id }}" aria-label="Edit"
+                                                        data-bs-original-title="Edit">
+                                                        <span class="btn-inner">
+                                                            <svg class="icon-20" width="20" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M15.1655 4.60254L19.7315 9.16854"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <a class="btn btn-sm btn-icon text-danger " data-bs-toggle="tooltip"
+                                                        aria-label="Delete" data-bs-original-title="Delete"
+                                                        onclick="hapus('subfaktor',{{ $item->id }})">
+                                                        <span class="btn-inner">
+                                                            <svg class="icon-20" width="20" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                stroke="currentColor">
+                                                                <path
+                                                                    d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M20.708 6.23975H3.75" stroke="currentColor"
+                                                                    stroke-width="1.5" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                                <path
+                                                                    d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

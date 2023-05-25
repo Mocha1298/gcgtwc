@@ -101,6 +101,11 @@
             padding: .5rem 1.5rem;
         }
     </style> --}}
+    <style>
+        table.table.table-hover.simple-tree-table td {
+            padding: 2px;
+        }
+    </style>
 @endsection
 
 @section('script')
@@ -140,17 +145,8 @@
     <script src="/jquery-simple-tree-table.js"></script>
 
     <script>
-        $('#basic').simpleTreeTable({
-            expander: $('#expander'),
-            collapser: $('#collapser'),
-            store: 'session',
-            storeKey: 'simple-tree-table-basic'
-        });
-        $('#open1').on('click', function() {
-            $('#basic').data('simple-tree-table').openByID("1");
-        });
-        $('#close1').on('click', function() {
-            $('#basic').data('simple-tree-table').closeByID("1");
+        $('table').simpleTreeTable({
+            opened: []
         });
     </script>
 @endsection
@@ -169,330 +165,32 @@
                         </div>
                         <div class="card-body px-0">
                             <div class="table-responsive">
-                                <table id="basic" border="1" class="table table-hover">
+                                <table id="basic" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <td style="width: 90%">Uraian</td>
-                                            <td>Bobot</td>
-                                            <td>Tertimbang</td>
-                                            <td>Individu</td>
+                                            <td style="width: 60%">Uraian</td>
+                                            <td style="width: 15%">Bobot</td>
+                                            <td style="width: 15%">Tertimbang</td>
+                                            <td style="width: 10%">Individu</td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr data-node-id="1" class="table-danger">
-                                            <td><a href="#"> Aspek 1</a></td>
-                                            <td>10,000</td>
-                                            <td>9,000</td>
-                                            <td>90%</td>
-                                        </tr>
-                                        <tr data-node-id="1.1" data-node-pid="1" class="table-info">
-                                            <td><a href="#"> Indikator 1</a></td>
-                                            <td>10,000</td>
-                                            <td>9,000</td>
-                                            <td>90%</td>
-                                        </tr>
-                                        <tr data-node-id="1.1.1" data-node-pid="1.1" class="table-warning">
-                                            <td><a href="#"> Parameter 1</a></td>
-                                            <td>10,000</td>
-                                            <td>9,000</td>
-                                            <td>90%</td>
-                                        </tr>
-                                        <tr data-node-id="1.1.1.1" data-node-pid="1.1.1">
-                                            <td><a href="#"> Faktor 1</a></td>
-                                            <td>
-                                                <a class="btn btn-sm btn-icon text-info" data-bs-toggle="modal"
-                                                    data-bs-target="#staticBackdrop-1">
-                                                    <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M16.334 2.75H7.665C4.644 2.75 2.75 4.889 2.75 7.916V16.084C2.75 19.111 4.634 21.25 7.665 21.25H16.333C19.364 21.25 21.25 19.111 21.25 16.084V7.916C21.25 4.889 19.364 2.75 16.334 2.75Z"
-                                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path d="M15.9393 12.0129H15.9483" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        </path>
-                                                        <path d="M11.9301 12.0129H11.9391" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        </path>
-                                                        <path d="M7.92128 12.0129H7.93028" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        </path>
-                                                    </svg>
-                                                </a>
-                                                <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static"
-                                                    data-bs-keyboard="false" tabindex="-1"
-                                                    aria-labelledby="staticBackdropLabel" style="display: none;"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="staticBackdropLabel">
-                                                                    Unsur
-                                                                    Pemenuhan
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <div class="form-check d-block">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="flexRadioDefault" id="flexRadioDefault1">
-                                                                        <label class="form-check-label"
-                                                                            for="flexRadioDefault1">
-                                                                            0
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check d-block">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="flexRadioDefault" id="flexRadioDefault2"
-                                                                            checked="">
-                                                                        <label class="form-check-label"
-                                                                            for="flexRadioDefault2">
-                                                                            1
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="customFile2"
-                                                                        class="form-label custom-file-input">Upload
-                                                                        Dokumen</label>
-                                                                    <input class="form-control" type="file"
-                                                                        id="customFile2">
-                                                                </div>
-                                                                <div class="text-start mt-2">
-                                                                    <button type="button" class="btn btn-primary"
-                                                                        data-bs-dismiss="modal">Save</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>9,000</td>
-                                            <td>90%</td>
-                                        </tr>
+                                        @yield('table')
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td></td>
                                             <td></td>
-                                            <td class="table-success">90%</td>
                                             <td></td>
+                                            <td class="table-success">90%</td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>
     </div>
 @endsection
-{{-- <table class="table table-hover">
-    <thead>
-        <tr class="text-center">
-            <td style="width:90%;">Uraian</td>
-            <td>Bobot</td>
-            <td>Tertimbang</td>
-            <td>Individu</td>
-        </tr>
-    </thead>
-</table>
-<table class="table table-hover table-danger">
-    <tbody>
-        <tr data-widget="expandable-table" aria-expanded="true">
-            <td style="width:68%;">
-                <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
-                Aspek 1
-            </td>
-            <td>7.000</td>
-            <td>6.898</td>
-            <td>98%</td>
-        </tr>
-        <tr class="expandable-body d-none">
-            <td>
-                <div class="p-0">
-                    <table class="table table-hover table-info">
-                        <tbody>
-                            <tr data-widget="expandable-table" aria-expanded="false">
-                                <td style="width:68%;">
-                                    <i
-                                        class="expandable-table-caret fas fa-caret-right fa-fw"></i>
-                                    indikator 1
-                                </td>
-                                <td>7.000</td>
-                                <td>6.898</td>
-                                <td>98%</td>
-                            </tr>
-                            <tr class="expandable-body d-none">
-                                <td>
-                                    <div class="p-0">
-                                        <table class="table table-hover table-warning">
-                                            <tbody>
-                                                <tr data-widget="expandable-table"
-                                                    aria-expanded="false">
-                                                    <td>
-                                                        <i
-                                                            class="expandable-table-caret fas fa-caret-right fa-fw"></i>
-                                                        Parameter 1
-                                                    </td>
-                                                </tr>
-                                                <tr class="expandable-body d-none">
-                                                    <td>
-                                                        <div class="p-0"
-                                                            style="display: none;">
-                                                            <table
-                                                                class="table table-hover table-secondary">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="width:90%;">
-                                                                            Faktor
-                                                                            1
-                                                                        </td>
-                                                                        <td>
-                                                                            <a class="btn btn-sm btn-icon text-info"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#staticBackdrop-1">
-                                                                                <svg class="icon-32"
-                                                                                    width="32"
-                                                                                    viewBox="0 0 24 24"
-                                                                                    fill="none"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path
-                                                                                        fill-rule="evenodd"
-                                                                                        clip-rule="evenodd"
-                                                                                        d="M12 2.75C17.108 2.75 21.25 6.891 21.25 12C21.25 17.108 17.108 21.25 12 21.25C6.891 21.25 2.75 17.108 2.75 12C2.75 6.892 6.892 2.75 12 2.75Z"
-                                                                                        stroke="currentColor"
-                                                                                        stroke-width="1.5"
-                                                                                        stroke-linecap="round"
-                                                                                        stroke-linejoin="round">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M15.9393 12.0129H15.9483"
-                                                                                        stroke="currentColor"
-                                                                                        stroke-width="2"
-                                                                                        stroke-linecap="round"
-                                                                                        stroke-linejoin="round">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M11.9301 12.0129H11.9391"
-                                                                                        stroke="currentColor"
-                                                                                        stroke-width="2"
-                                                                                        stroke-linecap="round"
-                                                                                        stroke-linejoin="round">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M7.92128 12.0129H7.93028"
-                                                                                        stroke="currentColor"
-                                                                                        stroke-width="2"
-                                                                                        stroke-linecap="round"
-                                                                                        stroke-linejoin="round">
-                                                                                    </path>
-                                                                                </svg>
-                                                                            </a>
-                                                                            <div class="modal fade"
-                                                                                id="staticBackdrop-1"
-                                                                                data-bs-backdrop="static"
-                                                                                data-bs-keyboard="false"
-                                                                                tabindex="-1"
-                                                                                aria-labelledby="staticBackdropLabel"
-                                                                                style="display: none;"
-                                                                                aria-hidden="true">
-                                                                                <div
-                                                                                    class="modal-dialog">
-                                                                                    <div
-                                                                                        class="modal-content">
-                                                                                        <div
-                                                                                            class="modal-header">
-                                                                                            <h5 class="modal-title"
-                                                                                                id="staticBackdropLabel">
-                                                                                                Unsur
-                                                                                                Pemenuhan
-                                                                                            </h5>
-                                                                                            <button
-                                                                                                type="button"
-                                                                                                class="btn-close"
-                                                                                                data-bs-dismiss="modal"
-                                                                                                aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="modal-body">
-                                                                                            <div
-                                                                                                class="form-group">
-                                                                                                <div
-                                                                                                    class="form-check d-block">
-                                                                                                    <input
-                                                                                                        class="form-check-input"
-                                                                                                        type="radio"
-                                                                                                        name="flexRadioDefault"
-                                                                                                        id="flexRadioDefault1">
-                                                                                                    <label
-                                                                                                        class="form-check-label"
-                                                                                                        for="flexRadioDefault1">
-                                                                                                        0
-                                                                                                    </label>
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="form-check d-block">
-                                                                                                    <input
-                                                                                                        class="form-check-input"
-                                                                                                        type="radio"
-                                                                                                        name="flexRadioDefault"
-                                                                                                        id="flexRadioDefault2"
-                                                                                                        checked="">
-                                                                                                    <label
-                                                                                                        class="form-check-label"
-                                                                                                        for="flexRadioDefault2">
-                                                                                                        1
-                                                                                                    </label>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="form-group">
-                                                                                                <label
-                                                                                                    for="customFile2"
-                                                                                                    class="form-label custom-file-input">Upload
-                                                                                                    Dokumen</label>
-                                                                                                <input
-                                                                                                    class="form-control"
-                                                                                                    type="file"
-                                                                                                    id="customFile2">
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="text-start mt-2">
-                                                                                                <button
-                                                                                                    type="button"
-                                                                                                    class="btn btn-primary"
-                                                                                                    data-bs-dismiss="modal">Save</button>
-                                                                                                <button
-                                                                                                    type="button"
-                                                                                                    class="btn btn-danger">Cancel</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table> --}}

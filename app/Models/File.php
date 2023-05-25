@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Aspect extends Model
+class File extends Model
 {
-    protected $table = 'aspects';
     use HasFactory;
+    protected $table = 'files';
 }

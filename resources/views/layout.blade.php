@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="/ico.png" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
     @yield('css')
     <style>
         .sidebar.sidebar-default .nav-link:not(.static-item).active,
@@ -24,6 +25,10 @@
 
         button.default {
             background: #00A7E6;
+        }
+
+        .nav-item a.nav-link:hover+.item-name {
+            color: #00A7E6;
         }
     </style>
 </head>
@@ -114,7 +119,7 @@
                         <ul class="sub-nav collapse" id="sidebar-table" data-bs-parent="#sidebar-menu">
                             {{-- Aspek --}}
                             <li class="nav-item">
-                                <a class="nav-link @yield('aspek')" href="@yield('d-aspek')">
+                                <a class="nav-link @yield('aspek')" href="/aspek">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -130,7 +135,7 @@
                             </li>
                             {{-- Indikator --}}
                             <li class="nav-item">
-                                <a class="nav-link @yield('indikator')" href="@yield('d-indikator')">
+                                <a class="nav-link @yield('indikator')" href="/indikator">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -146,7 +151,7 @@
                             </li>
                             {{-- Parameter --}}
                             <li class="nav-item">
-                                <a class="nav-link @yield('parameter')" href="@yield('d-parameter')">
+                                <a class="nav-link @yield('parameter')" href="/parameter">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -162,7 +167,7 @@
                             </li>
                             {{-- Faktor --}}
                             <li class="nav-item">
-                                <a class="nav-link @yield('faktor')" href="@yield('d-faktor')">
+                                <a class="nav-link @yield('faktor')" href="/faktor">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -178,7 +183,7 @@
                             </li>
                             {{-- Unsur --}}
                             <li class="nav-item">
-                                <a class="nav-link @yield('sub')" href="@yield('d-sub')">
+                                <a class="nav-link @yield('sub')" href="/subfaktor">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -407,7 +412,53 @@
     </main>
 
     @yield('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    @if ($message = Session::get('success'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Berhasil disimpan',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
 
+    @if ($message = Session::get('warning'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Berhasil dihapus',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
+    <script>
+        function hapus(index, id) {
+            Swal.fire({
+                title: 'Anda yakin akan menghapus data ini?',
+                showDenyButton: true,
+                confirmButtonText: 'Ya, saya yakin!',
+                denyButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log("josss");
+                    window.location.href = '/delete/' + index + '/' + id
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Batal menghapus',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

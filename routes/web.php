@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Master;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,23 +30,63 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/{id}', [ProfileController::class, 'update']);
     Route::get('/profiled/{id}', [ProfileController::class, 'destroy']);
 
-    Route::get('/aspek', function () {
-        return view('master/aspek');
-    });
-    Route::get('/indikator', function () {
-        return view('master/indikator');
-    });
-    Route::get('/parameter', function () {
-        return view('master/parameter');
-    });
-    Route::get('/faktor', function () {
-        return view('master/faktor');
-    });
-    Route::get('/sub', function () {
-        return view('master/sub');
-    });
+
+    // ROUTE ASPEK start
+        Route::get('/aspek','App\Http\Controllers\AspectController@home');
+        Route::post('/aspek','App\Http\Controllers\AspectController@add');
+        Route::get('/edit/aspek/{id}','App\Http\Controllers\AspectController@edit');
+        Route::post('/edit/aspek/{id}','App\Http\Controllers\AspectController@update');
+        Route::get('/delete/aspek/{id}','App\Http\Controllers\AspectController@delete');
+    // ROUTE ASPEK end
+    // ROUTE INDIKATOR start
+        Route::get('/indikator','App\Http\Controllers\IndicatorController@home');
+        Route::post('/indikator','App\Http\Controllers\IndicatorController@add');
+        Route::get('/edit/indikator/{id}','App\Http\Controllers\IndicatorController@edit');
+        Route::post('/edit/indikator/{id}','App\Http\Controllers\IndicatorController@update');
+        Route::get('/delete/indikator/{id}','App\Http\Controllers\IndicatorController@delete');
+    // ROUTE INDIKATOR end
+    // ROUTE PARAMETER start
+        Route::get('/parameter','App\Http\Controllers\ParameterController@home');
+        Route::post('/parameter','App\Http\Controllers\ParameterController@add');
+        Route::get('/edit/parameter/{id}','App\Http\Controllers\ParameterController@edit');
+        Route::post('/edit/parameter/{id}','App\Http\Controllers\ParameterController@update');
+        Route::get('/delete/parameter/{id}','App\Http\Controllers\ParameterController@delete');
+    // ROUTE PARAMETER end
+    // ROUTE FAKTOR start
+        Route::get('/faktor','App\Http\Controllers\FactorController@home');
+        Route::post('/faktor','App\Http\Controllers\FactorController@add');
+        Route::get('/edit/faktor/{id}','App\Http\Controllers\FactorController@edit');
+        Route::post('/edit/faktor/{id}','App\Http\Controllers\FactorController@update');
+        Route::get('/delete/faktor/{id}','App\Http\Controllers\FactorController@delete');
+    // ROUTE FAKTOR end
+    // ROUTE SUB start
+        Route::get('/subfaktor','App\Http\Controllers\SubFactorController@home');
+        Route::post('/subfaktor','App\Http\Controllers\SubFactorController@add');
+        Route::get('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@edit');
+        Route::post('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@update');
+        Route::get('/delete/subfaktor/{id}','App\Http\Controllers\SubFactorController@delete');
+    // ROUTE SUB end
+
+    // ROUTE REPORT 
+        // Route::get('report','')
+    // ROUTE REPORT
+
+
     Route::get('/report', function () {
-        return view('report');
+        $aspek = Master::where('jenis','Aspek')->get();
+        $indikator = Master::where('jenis','Indikator')->get();
+        $parameter = Master::where('jenis','Parameter')->get();
+        $faktor = Master::where('jenis','faktor')->get();
+        $sub = Master::where('jenis','Sub')->get();
+        // return $sub;
+        $data = [
+            'aspek'=>$aspek,
+            'indikator'=>$indikator,
+            'parameter'=>$parameter,
+            'faktor'=>$faktor,
+            'sub'=>$sub
+        ];
+        return view('table',$data);
     });
     Route::get('/index', function () {
         return view('layout');
