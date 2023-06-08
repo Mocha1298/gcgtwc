@@ -100,13 +100,13 @@
                         <div class="form-group">
                             <label for="text" class="form-label">Keterangan</label>
                             <input name="keterangan" type="text" class="form-control" id="text"
-                                aria-describedby="text" placeholder="Keterangan" value="{{ $master->keterangan }}" required>
+                                aria-describedby="text" placeholder="Keterangan" value="{{ $master->keterangan }}">
                         </div>
                         <div class="form-group">
                             <label for="text" class="form-label">Catatan</label>
                             <textarea name="catatan" class="form-control" id="text" cols="30" rows="3">{{ $master->catatan }}</textarea>
                         </div>
-                        <div class="text-start mt-2">
+                        <div class="text-end mt-2">
                             <button type="submit" class="btn btn-primary"
                                 style="border:none;background: #00A7E6;">Save</button>
                         </div>

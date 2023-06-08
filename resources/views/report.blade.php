@@ -14,96 +14,53 @@
 @endsection
 
 @section('css')
-    <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css" />
-
-
-    <!-- Hope Ui Design System Css -->
     <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=2.0.0" />
-
-    <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/custom.min.css?v=2.0.0" />
-
-    <!-- Dark Css -->
     <link rel="stylesheet" href="../../assets/css/dark.min.css" />
-
-    <!-- Customizer Css -->
     <link rel="stylesheet" href="../../assets/css/customizer.min.css" />
-
-    <!-- RTL Css -->
     <link rel="stylesheet" href="../../assets/css/rtl.min.css" />
-    {{-- <style>
-        .table-hover tbody tr.expandable-body:hover {
-            background-color: inherit !important
-        }
-
-        [data-widget=expandable-table] {
-            cursor: pointer
-        }
-
-        [data-widget=expandable-table] i.expandable-table-caret {
-            transition: -webkit-transform .3s linear;
-            transition: transform .3s linear;
-            transition: transform .3s linear, -webkit-transform .3s linear
-        }
-
-        [data-widget=expandable-table][aria-expanded=true] i.expandable-table-caret[class*=right] {
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg)
-        }
-
-        [data-widget=expandable-table][aria-expanded=true] i.expandable-table-caret[class*=left] {
-            -webkit-transform: rotate(-90deg);
-            transform: rotate(-90deg)
-        }
-
-        [aria-expanded=true] {
-            cursor: pointer
-        }
-
-        [aria-expanded=true] i.expandable-table-caret {
-            transition: -webkit-transform .3s linear;
-            transition: transform .3s linear;
-            transition: transform .3s linear, -webkit-transform .3s linear
-        }
-
-        [aria-expanded=true] [data-widget=expandable-table] i.expandable-table-caret[class*=right] {
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg)
-        }
-
-        [aria-expanded=true] [data-widget=expandable-table] i.expandable-table-caret[class*=left] {
-            -webkit-transform: rotate(-90deg);
-            transform: rotate(-90deg)
-        }
-
-        .expandable-body>td {
-            padding: 0 !important;
-            width: 100%
-        }
-
-        .expandable-body>td>div,
-        .expandable-body>td>p {
-            padding: .75rem
-        }
-
-        .expandable-body .table {
-            width: calc(100% - .75rem);
-            margin: 0 0 0 .75rem
-        }
-
-        .expandable-body .table tr:first-child td,
-        .expandable-body .table tr:first-child th {
-            border-top: none
-        }
-
-        .table>:not(caption)>*>* {
-            padding: .5rem 1.5rem;
-        }
-    </style> --}}
     <style>
         table.table.table-hover.simple-tree-table td {
             padding: 2px;
+            border-radius: 6px;
+            max-width: 10%;
+            margin-bottom: .4em;
+        }
+
+        span.simple-tree-table-handler.simple-tree-table-icon {
+            border-radius: 6px;
+        }
+
+        table.table.table-hover.simple-tree-table td a {
+            color: black;
+        }
+
+        table {
+            border-collapse: inherit;
+            font-size: 12px;
+            color: white;
+        }
+
+        hr {
+            margin: 1rem 0;
+            color: inherit;
+            background-color: currentColor;
+            border: 0;
+            opacity: 0.25;
+        }
+
+        .form-group {
+            margin-bottom: 3px;
+        }
+        td#nama{
+            cursor: pointer;
+        }
+        form#detail_child{
+            color: black;
+        }
+        form#detail_child input{
+            color: black;
         }
     </style>
 @endsection
@@ -148,49 +105,92 @@
         $('table').simpleTreeTable({
             opened: []
         });
+        function showdet(id,type) {
+            if (document.getElementById('detail_child')) {
+                document.getElementById('detail_child').remove();
+            }
+            $.ajax({
+                type: 'GET',
+                url: "/getdet/"+id+"/"+type,
+                success: function(e) {
+                    console.log(id);
+                    var token = '{{csrf_token()}}'
+                    if(e.detail.catatan == null){
+                        e.detail.catatan = "";
+                    }
+                    if(e.detail.rekomendasi == null){
+                        e.detail.rekomendasi = "";
+                    }
+                    if(e.detail.analisis == null){
+                        e.detail.analisis = "";
+                    }
+                    if (e.type == 'Aspek' || e.type == 'Faktor') {
+                        var div = document.getElementById("detail_information")
+                        div.innerHTML += "<form action='/summary/"+e.type+"/"+id+"' method='post' id='detail_child'><label class='mb-3'>Title : "+e.detail.nama+"</label>\n<input type='hidden' name='_token' value='"+token+"'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><input value='"+e.detail.catatan+"' name='catatan' type='text' class='form-control' id='catatan' placeholder='Catatan'></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
+                    } else {
+                        var div = document.getElementById("detail_information")
+                        div.innerHTML += "<form action='/summary/"+e.type+"/"+id+"' method='post' id='detail_child'><label class='mb-3'>Title : "+e.detail.nama+"</label>\n<input type='hidden' name='_token' value='"+token+"'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><input value='"+e.detail.catatan+"' name='catatan' type='text' class='form-control' id='catatan' placeholder='Catatan'></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Analisis:</label><div class='col-sm-9'><input value='"+e.detail.analisis+"' name='analisis' type='text' class='form-control' id='analisis' placeholder='Analisis'></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Rekomendasi:</label><div class='col-sm-9'><input value='"+e.detail.rekomendasi+"' name='rekomendasi' type='text' class='form-control' id='rekomendasi' placeholder='Rekomendasi'></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
+                    }
+                }
+            });
+        }
     </script>
 @endsection
 
 
 @section('main')
-    <div class="conatiner-fluid content-inner mt-n5 py-0">
-        <div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <div class="header-title">
-                                <h4 class="card-title">Summary List</h4>
-                            </div>
+<div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Summary List</h4>
                         </div>
-                        <div class="card-body px-0">
-                            <div class="table-responsive">
-                                <table id="basic" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td style="width: 60%">Uraian</td>
-                                            <td style="width: 15%">Bobot</td>
-                                            <td style="width: 15%">Tertimbang</td>
-                                            <td style="width: 10%">Individu</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @yield('table')
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="table-success">90%</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr style="color: white;font-weight: 700;background: rgb(58, 79, 122)">
+                                        <td class="text-center">Uraian</td>
+                                        <td class="text-center">Bobot</td>
+                                        <td class="text-center">Tertimbang</td>
+                                        <td class="text-center">Individu</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @yield('table')
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="table-success text-center">{{ number_format($total, 1, '.', '') }}%
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Summary Detail</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="detail_information" class="container">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

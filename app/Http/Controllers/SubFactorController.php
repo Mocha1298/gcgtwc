@@ -30,6 +30,7 @@ class SubFactorController extends Controller
         $master->observasi = $req->observasi;
         $master->wawancara = $req->wawancara;
         $master->isian = $req->isian;
+        $master->skor = 0;
         $master->save();
         return redirect()->back()->with('success','Berhasil');
     }

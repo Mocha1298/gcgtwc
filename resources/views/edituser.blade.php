@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'User')
+@section('title', 'Edit User')
 @section('user', 'active')
 @section('link1', '/')
 @section('d-aspek', '/aspek')
@@ -7,10 +7,10 @@
 @section('d-parameter', '/parameter')
 @section('d-faktor', '/faktor')
 @section('d-sub', '/sub')
-@section('link3', '#')
+@section('link3', '/user')
 @section('link4', '/report')
 @section('greeting')
-    <h1>User</h1>
+    <h1>Edit User</h1>
 @endsection
 
 @section('css')
@@ -36,6 +36,10 @@
     <style>
         #aspek {
             transition: all 5s;
+        }
+        select.form-select:disabled{
+            background-color: #4949496c;
+            color: #fff;
         }
     </style>
 @endsection
@@ -147,23 +151,18 @@
                                 <div class="form-group" id="aspek">
                                     <label for="text" class="form-label">Pilih Aspek</label>
                                     <div class="form-group">
-                                        <select disabled class="form-select" id="exampleFormControlSelect2" name="id_aspek">
+                                        <select disabled class="form-select" id="exampleFormControlSelect2"
+                                            name="id_master">
                                             <option id="default" selected="" disabled="">Pilih Aspek</option>
                                             @foreach ($aspek as $item)
-                                                @if (old('role') == 'User' || $data->role == 'User')
-                                                    <option value="User" selected>User</option>
-                                                @else
-                                                    <option value="User">User</option>
-                                                @endif
-                                                <option @if (old('id_aspek') == $item->id || $data->id_aspek == $item->id) selected @endif
-                                                    value="{{ $item->id }}">{{ $item->nomor }}</option>
+                                                <option @if ($data->id_master == $item->id) selected @endif
+                                                    value="{{ $item->id }}">Aspek {{ $item->urutan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="text-end mt-4 mb-4">
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                                 </div>
                             </div>
                         </form>

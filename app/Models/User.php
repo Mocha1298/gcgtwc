@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'id_aspek'
+        'id_master'
     ];
 
     /**

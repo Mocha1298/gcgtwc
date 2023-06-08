@@ -92,9 +92,8 @@
                             <label for="text" class="form-label">Catatan</label>
                             <textarea name="catatan" class="form-control" id="text" cols="30" rows="3">{{ $master->catatan }}</textarea>
                         </div>
-                        <div class="text-start mt-2">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                            <button type="button" class="btn btn-danger">Cancel</button>
+                        <div class="text-end mt-2">
+                            <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                         </div>
                     </form>
                 </div>

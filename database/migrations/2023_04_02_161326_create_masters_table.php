@@ -31,6 +31,11 @@ return new class extends Migration
             $table->boolean('kuesioner')->nullable();
             $table->boolean('wawancara')->nullable();
             $table->boolean('observasi')->nullable();
+
+            $table->boolean('dokumen_file')->nullable();
+            $table->boolean('kuesioner_file')->nullable();
+            $table->boolean('wawancara_file')->nullable();
+            $table->boolean('observasi_file')->nullable();
             
             $table->integer('isian')->nullable();
             $table->float('skor')->nullable();

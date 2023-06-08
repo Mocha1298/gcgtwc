@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'User')
+@section('title', 'Add User')
 @section('user', 'active')
 @section('link1', '/')
 @section('d-aspek', '/aspek')
@@ -7,10 +7,10 @@
 @section('d-parameter', '/parameter')
 @section('d-faktor', '/faktor')
 @section('d-sub', '/sub')
-@section('link3', '#')
+@section('link3', '/user')
 @section('link4', '/report')
 @section('greeting')
-    <h1>User</h1>
+    <h1>Add User</h1>
 @endsection
 
 @section('css')
@@ -161,18 +161,19 @@
                                 <div class="form-group" id="aspek">
                                     <label for="text" class="form-label">Pilih Aspek</label>
                                     <div class="form-group">
-                                        <select disabled class="form-select" id="exampleFormControlSelect2" name="id_aspek">
+                                        <select disabled class="form-select" id="exampleFormControlSelect2"
+                                            name="id_master">
                                             <option id="default" selected="" disabled="">Pilih Aspek</option>
                                             @foreach ($aspek as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nomor }}
+                                                <option value="{{ $item->id }}">Aspek {{ $item->urutan }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="text-end mt-4 mb-4">
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Save</button>
                                 </div>
                             </div>
                         </form>

@@ -79,14 +79,14 @@
                     <form action="/edit/subfaktor/{{ $master->id }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="text" class="form-label">Pilih Parameter</label>
+                            <label for="text" class="form-label">Pilih Faktor</label>
                             <div class="form-group">
                                 <select name="id_parent" class="form-select" id="exampleFormControlSelect1" onchange="cek()"
                                     required>
-                                    <option selected disabled="">Pilih Parameter</option>
+                                    <option selected disabled="">Pilih Faktor</option>
                                     @foreach ($faktor as $option)
                                         <option value="{{ $option->id }}"
-                                            @if ($master->id_parent == $option->id) selected @endif>Parameter
+                                            @if ($master->id_parent == $option->id) selected @endif>Faktor
                                             {{ $option->urutan }}</option>
                                     @endforeach
                                 </select>
@@ -143,7 +143,7 @@
                             <label for="text" class="form-label">Catatan</label>
                             <textarea name="catatan" class="form-control" id="text" cols="30" rows="3">{{ $master->catatan }}</textarea>
                         </div>
-                        <div class="text-start mt-2">
+                        <div class="text-end mt-2">
                             <button type="submit" class="btn btn-primary"
                                 style="border:none;background: #00A7E6;">Save</button>
                         </div>

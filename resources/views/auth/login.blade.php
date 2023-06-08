@@ -43,13 +43,13 @@
     <div class="wrapper">
         <section class="login-content">
             <div class="row m-0 align-items-center bg-white vh-100">
-                <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-                    <img src="/_MGM7327.jpg" class="img-fluid gradient-main animated-scaleX" alt="images">
+                <div class="col-md-5 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
+                    <img src="/mockup-background.jpg" class="img-fluid gradient-main" alt="images">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
+                            <div class="card d-flex justify-content-center mb-0 auth-card">
                                 <div class="card-body">
                                     <a href="#" class="navbar-brand d-flex align-items-center mb-3">
                                         <!--Logo start-->
@@ -57,14 +57,13 @@
                                         <!--Logo start-->
                                         <div class="logo-main">
                                             <div class="logo-normal">
-                                                <img src="/logo.png" alt="" width="30px" srcset="">
+                                                <img src="/gcg_inline.jpg" alt="" width="150px" srcset="">
                                             </div>
                                             <div class="logo-mini">
-                                                <img src="/logo.png" alt="" width="30px" srcset="">
+                                                <img src="/gcg_inline.jpg" alt="" width="80px" srcset="">
                                             </div>
                                         </div>
                                         <!--logo End-->
-                                        <h6 class="logo-title ms-5">GCG TWC</h6>
                                     </a>
                                     <h5 class="mb-2 text-center">Sign In</h5>
                                     <p style="font-size: 15px" class="text-center">Login to start your work.</p>
@@ -90,19 +89,6 @@
                                                 </div>
                                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                             </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="tahun" class="form-label">Tahun</label>
-                                                    <select type="number" class="form-control" id="tahun"
-                                                        aria-describedby="tahun" placeholder=" ">
-                                                        <option disabled selected>Pilih Tahun</option>
-                                                        <option value="">2023</option>
-                                                        <option value="">2022</option>
-                                                        <option value="">2021</option>
-                                                        <option value="">2020</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-12 d-flex justify-content-between">
                                                 <div class="form-check mb-3">
                                                     <input type="checkbox" class="form-check-input" id="customCheck1">
@@ -118,16 +104,16 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-primary">Sign In</button>
+                                            <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary">Sign In</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="sign-bg">
+                    {{-- <div class="sign-bg">
                         <img src="/logo.png" alt="" width="280px" srcset="" style="opacity: 0.05;">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

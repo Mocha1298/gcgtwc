@@ -173,7 +173,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="text-start mt-2">
+                                            <div class="text-end mt-2">
                                                 <button type="submit" class="btn btn-primary"
                                                     style="border:none;background: #00A7E6;">Save</button>
                                             </div>
@@ -200,7 +200,7 @@
                                     @foreach ($master as $item)
                                         <tr>
                                             <td>{{ $item->urutan }}</td>
-                                            <td>{{ $item->nama }}</td>
+                                            <td id="nama">{{ $item->nama }}</td>
                                             <td>
                                                 @foreach ($faktor as $option)
                                                     @if ($item->id_parent == $option->id)

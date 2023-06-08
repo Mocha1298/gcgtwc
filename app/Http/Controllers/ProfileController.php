@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use App\Models\User;
-use App\Models\Aspect;
+use App\Models\Master;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,14 +18,19 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        $data = User::all();
-        $aspek = Aspect::all();
-        return view("user",['data'=>$data,'aspek'=>$aspek]);
+        $user = User::all();
+        $aspek = Master::where('jenis','Aspek')->get();
+        $data = [
+            'user'=>$user,
+            'aspek'=>$aspek
+        ];
+        // return $data;
+        return view("user",$data);
     }
 
     public function create()
     {
-        $aspek = Aspect::all();
+        $aspek = Master::where('jenis','Aspek')->get();
         return view("newuser",['aspek'=>$aspek]);
     }
 
@@ -44,6 +49,7 @@ class ProfileController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
+                'id_master' => 0
             ]);
         }
         else{
@@ -52,7 +58,7 @@ class ProfileController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
-                'id_aspek' => $request->id_aspek,
+                'id_master' => $request->id_master,
             ]);
         }
 
@@ -60,7 +66,7 @@ class ProfileController extends Controller
 
         // Auth::login($user);
 
-        return redirect("/user")->with("cek","simpan");
+        return redirect("/user")->with("success","Berhasil");
     }
     /**
      * Display the user's profile form.
@@ -69,7 +75,7 @@ class ProfileController extends Controller
     {
         $data = User::find($id);
         // dd($data);
-        $aspek = Aspect::all();
+        $aspek = Master::where('jenis','Aspek')->get();
         return view("edituser",['data'=>$data,'aspek'=>$aspek]);
     }
 
@@ -84,13 +90,24 @@ class ProfileController extends Controller
             'role'=> ['required'],
         ]);
         $user = User::find($id);
-        $user->update($request->all());
+        if($request->role == "Admin"){
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role = $request->role;
+        }else{
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role = $request->role;
+            $user->id_master = $request->id_master;
+        }
+        $user->save();
+        // $user->update($request->all());
 
         // event(new Registered($user));
 
         // Auth::login($user);
 
-        return redirect("/user")->with("cek","edit");
+        return redirect("/user")->with("success","Berhasil");
     }
 
     /**
@@ -104,6 +121,6 @@ class ProfileController extends Controller
         $user->delete();
 
 
-        return redirect("/user")->with("cek","hapus");
+        return redirect("/user")->with("warning","Berhasi");
     }
 }

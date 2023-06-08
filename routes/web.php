@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Master;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +21,43 @@ use App\Models\Master;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return view('dashboard');
+        $id = Auth::user()->id_master;
+        $role = Auth::user()->role;
+        if ($role == "Admin") {
+            $aspek = Master::where('jenis','Aspek')->get();
+            $indikator = 0;
+        }else{
+            $aspek = Master::find($id);
+            $indikator = Master::where('id_parent',$id)->get();
+        }
+
+        $data = [
+            'aspek'=>$aspek,
+            'indikator'=>$indikator,
+        ];
+        return view('dashboard',$data);
     });
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $sub = Master::where('jenis','Sub')->get();
+        $faktor = Master::where('jenis','Faktor')->get();
+        $parameter = Master::where('jenis','Parameter')->get();
+        $indikator = Master::where('jenis','Indikator')->get();
+        $aspek = Master::where('jenis','Aspek')->get();
+
+        $data = [
+            'aspek'=>$aspek,
+            'indikator'=>$indikator,
+            'parameter'=>$parameter,
+            'faktor'=>$faktor,
+            'sub'=>$sub,
+            'total'=>$total
+        ];
+        return view('dashboard',$data);
     })->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/profile/{id}', [ProfileController::class, 'edit']);
     Route::post('/profile/{id}', [ProfileController::class, 'update']);
-    Route::get('/profiled/{id}', [ProfileController::class, 'destroy']);
+    Route::get('/delete/profile/{id}', [ProfileController::class, 'destroy']);
 
 
     // ROUTE ASPEK start
@@ -67,26 +96,136 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/subfaktor/{id}','App\Http\Controllers\SubFactorController@delete');
     // ROUTE SUB end
 
-    // ROUTE REPORT 
-        // Route::get('report','')
-    // ROUTE REPORT
-
 
     Route::get('/report', function () {
-        $aspek = Master::where('jenis','Aspek')->get();
-        $indikator = Master::where('jenis','Indikator')->get();
-        $parameter = Master::where('jenis','Parameter')->get();
-        $faktor = Master::where('jenis','faktor')->get();
+        // research section
+            $temp_f = 0;
+            $faktor = Master::where('jenis','Faktor')->get();
+            $max_f = count($faktor);
+            for ($index_f=0; $index_f < $max_f; $index_f++) { 
+                $sub = Master::where('id_parent',$faktor[$index_f]->id)->get();
+                $max_s = count($sub);
+                for ($index_s=0; $index_s < $max_s; $index_s++) { 
+                    $temp_f += $sub[$index_s]->skor;
+                }
+                $faktor_v = Master::find($faktor[$index_f]->id);
+                $faktor_v->skor = ($temp_f*100)/$max_s;
+                if($faktor_v->skor%25 >0){
+                $faktor_v->tertimbang = $faktor_v->skor/25+1;
+                }else{
+                $faktor_v->tertimbang = $faktor_v->skor/25;
+                }
+                $faktor_v->save();
+                $temp_f = 0;
+            }
+            // return $faktor;
+
+            $temp_p = 0;
+            $parameter = Master::where('jenis','Parameter')->get();
+            $max_p = count($parameter);
+            for ($index_p=0; $index_p < $max_p; $index_p++) { 
+                $faktor = Master::where('id_parent',$parameter[$index_p]->id)->get();
+                $max_f = count($faktor);
+                for ($index_f=0; $index_f < $max_f; $index_f++) { 
+                    $temp_p += $faktor[$index_f]->skor;
+                }
+                $parameter_v = Master::find($parameter[$index_p]->id);
+                if($temp_p > 0){
+                    $parameter_v->skor = $temp_p/$max_f;
+                }else{
+                    $parameter_v->skor = 0;
+                }
+                $parameter_v->tertimbang = ($parameter_v->skor/100)*$parameter_v->bobot;
+                $parameter_v->save();
+                $temp_p = 0;
+            }
+
+
+            $temp_i = 0;
+            $indikator = Master::where('jenis','Indikator')->get();
+            $max_i = count($indikator);
+            for ($index_i=0; $index_i < $max_i; $index_i++) { 
+                $parameter = Master::where('id_parent',$indikator[$index_i]->id)->get();
+                $max_p = count($parameter);
+                for ($index_f=0; $index_f < $max_p; $index_f++) { 
+                    $temp_i += $parameter[$index_f]->skor;
+                }
+                $indikator_v = Master::find($indikator[$index_i]->id);
+                if ($temp_i > 0) {
+                    $indikator_v->skor = $temp_i/$max_p;
+                }else{
+                    $indikator_v->skor = 0;
+                }
+                $indikator_v->tertimbang = ($indikator_v->skor/100)*$indikator_v->bobot;
+                $indikator_v->save();
+                $temp_i = 0;
+            }
+
+            
+            $temp_a = 0;
+            $total = 0;
+            $aspek = Master::where('jenis','Aspek')->get();
+            $max_a = count($aspek);
+            for ($index_a=0; $index_a < $max_a; $index_a++) { 
+                $indikator = Master::where('id_parent',$aspek[$index_a]->id)->get();
+                $max_i = count($indikator);
+                for ($index_f=0; $index_f < $max_i; $index_f++) { 
+                    $temp_a += $indikator[$index_f]->skor;
+                }
+                $aspek_v = Master::find($aspek[$index_a]->id);
+                if ($temp_a > 0) {
+                    $aspek_v->skor = $temp_a/$max_i;
+                }else{
+                    $aspek_v->skor = 0;
+                }
+                $aspek_v->tertimbang = ($aspek_v->skor/100)*$aspek_v->bobot;
+                $aspek_v->save();
+                $total += $aspek_v->skor;
+                $temp_a = 0;
+            }
+        //research section
+        $total = $total/$max_a;
         $sub = Master::where('jenis','Sub')->get();
-        // return $sub;
+        $faktor = Master::where('jenis','Faktor')->get();
+        $parameter = Master::where('jenis','Parameter')->get();
+        $indikator = Master::where('jenis','Indikator')->get();
+        $aspek = Master::where('jenis','Aspek')->get();
+
         $data = [
             'aspek'=>$aspek,
             'indikator'=>$indikator,
             'parameter'=>$parameter,
             'faktor'=>$faktor,
-            'sub'=>$sub
+            'sub'=>$sub,
+            'total'=>$total
         ];
+        // return $data;
         return view('table',$data);
+    });
+    Route::post('/summary/{id}', function(Request $req, $id){
+        $ids = DB::table('masters')->select('id')->where('id_parent',$id)->get();
+        // $master = Master::where('id_parent',$id)->where('urutan',1)->get();
+        $count = count($ids);
+        // return $ids[1]->id;
+        // return $req;
+        for($i = 0;$i < $count;$i++){
+            $master = Master::find($ids[$i]->id);
+            if($master->dokumen == 1){
+                $master->dokumen_file = $req->dokumen[$ids[$i]->id];
+            }
+            if($master->kuesioner == 1){
+                $master->kuesioner_file = $req->kuesioner[$ids[$i]->id];
+            }
+            if($master->wawancara == 1){
+                $master->wawancara_file = $req->wawancara[$ids[$i]->id];
+            }
+            if($master->observasi == 1){
+                $master->observasi_file = $req->observasi[$ids[$i]->id];
+            }
+            $master->skor = $req->skor[$ids[$i]->id];
+            $master->save();
+        }
+        return redirect('/report')->with('success','Berhasil');
     });
     Route::get('/index', function () {
         return view('layout');
@@ -96,6 +235,36 @@ Route::middleware('auth')->group(function () {
     Route::get('/user',[ProfileController::class, 'show'])->name('user');
     Route::get('/newuser',[ProfileController::class, 'create'])->name('create');
     Route::post('/newuser',[ProfileController::class, 'store'])->name('store');
+
+    Route::get('getdet/{id}/{type}',function ($id,$type)
+    {
+        if($type == 'Aspek' || $type == 'Faktor'){
+            $detail = Master::where('id',$id)->select('id','nama','urutan','catatan')->first();
+        }elseif($type == 'Indikator' ||$type == 'Parameter'){
+            $detail = Master::where('id',$id)->select('id','nama','urutan','catatan','rekomendasi','analisis')->first();
+        }
+        $data = [
+            'detail'=>$detail,
+            'type'=>$type,
+        ];
+        return $data;
+    });
+    Route::post('/summary/{type}/{id}', function (Request $req,$type,$id)
+    {
+        if($type == 'Aspek' || $type == 'Faktor'){
+            $detail = Master::find($id);
+            $detail->catatan = $req->catatan;
+            $detail->save();
+            return redirect()->back()->with('success','Berhasil');
+        }elseif($type == 'Indikator' || $type == 'Parameter'){
+            $detail = Master::find($id);
+            $detail->catatan = $req->catatan;
+            $detail->rekomendasi = $req->rekomendasi;
+            $detail->analisis = $req->analisis;
+            $detail->save();
+            return redirect()->back()->with('success','Berhasil');
+        }
+    });
 });
 
 require __DIR__.'/auth.php';

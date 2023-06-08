@@ -120,7 +120,7 @@
                                             <div class="form-group">
                                                 <label for="text" class="form-label">Bobot</label>
                                                 <input name="bobot" type="number" class="form-control" id="text"
-                                                    placeholder="Bobot" required>
+                                                    placeholder="Bobot" step="0.001" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="text" class="form-label">Catatan</label>
@@ -134,10 +134,9 @@
                                                 <label for="text" class="form-label">Rekomendasi</label>
                                                 <textarea name="rekomendasi" class="form-control" id="text" cols="30" rows="3"></textarea>
                                             </div>
-                                            <div class="text-start mt-2">
+                                            <div class="text-end mt-2">
                                                 <button type="submit" class="btn btn-primary"
                                                     style="border:none;background: #00A7E6;">Save</button>
-                                                <button type="button" class="btn btn-danger">Cancel</button>
                                             </div>
                                         </form>
                                     </div>
@@ -161,7 +160,7 @@
                                     @foreach ($master as $item)
                                         <tr>
                                             <td>{{ $item->urutan }}</td>
-                                            <td>{{ $item->nama }}</td>
+                                            <td id="nama">{{ $item->nama }}</td>
                                             <td>{{ $item->bobot }}</td>
                                             <td>
                                                 @foreach ($indikator as $option)
