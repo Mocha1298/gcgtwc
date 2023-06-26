@@ -104,6 +104,8 @@
                                 <option disabled value="">Pilih Salah Satu</option>
                                 <option @if ($master->isian == 2) selected @endif value="2">2 Pilihan (0,1)
                                 </option>
+                                <option @if ($master->isian == 3) selected @endif value="3">3 Pilihan (0,0.5,1)
+                                </option>
                                 <option @if ($master->isian == 5) selected @endif value="5">5 Pilihan
                                     (0,0.25,0.5,0.75,1)</option>
                             </select>
@@ -143,6 +145,30 @@
                             <label for="text" class="form-label">Catatan</label>
                             <textarea name="catatan" class="form-control" id="text" cols="30" rows="3">{{ $master->catatan }}</textarea>
                         </div>
+                        {{-- <div class="form-group">
+                            <label for="text" class="form-label">Pilih Tahun</label>
+                            <div class="form-group">
+                                <select class="form-select" id=""
+                                    name="tahun" required>
+                                    <option @if ($master->tahun== 2023) selected @endif
+                                        value="2023">2023</option>
+                                    <option @if ($master->tahun== 2024) selected @endif
+                                        value="2024">2024</option>
+                                    <option @if ($master->tahun== 2025) selected @endif
+                                        value="2025">2025</option>
+                                    <option @if ($master->tahun== 2026) selected @endif
+                                        value="2026">2026</option>
+                                    <option @if ($master->tahun== 2027) selected @endif
+                                        value="2027">2027</option>
+                                    <option @if ($master->tahun== 2028) selected @endif
+                                        value="2028">2028</option>
+                                    <option @if ($master->tahun== 2029) selected @endif
+                                        value="2029">2029</option>
+                                    <option @if ($master->tahun== 2030) selected @endif
+                                        value="2030">2030</option>
+                                </select>
+                            </div>
+                        </div> --}}
                         <div class="text-end mt-2">
                             <button type="submit" class="btn btn-primary"
                                 style="border:none;background: #00A7E6;">Save</button>

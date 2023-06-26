@@ -1,14 +1,6 @@
 @extends('layout')
 @section('title', 'Edit User')
 @section('user', 'active')
-@section('link1', '/')
-@section('d-aspek', '/aspek')
-@section('d-indikator', '/indikator')
-@section('d-parameter', '/parameter')
-@section('d-faktor', '/faktor')
-@section('d-sub', '/sub')
-@section('link3', '/user')
-@section('link4', '/report')
 @section('greeting')
     <h1>Edit User</h1>
 @endsection

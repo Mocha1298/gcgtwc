@@ -7,19 +7,20 @@ use App\Models\Master;
 
 class SubFactorController extends Controller
 {
-    public function home()
+    public function home($tahun)
     {
-        $master = Master::where('jenis','Sub')->get();
-        $faktor = Master::where('jenis','Faktor')->select('id','urutan')->get();
+        $master = Master::where('jenis','Sub')->where('tahun',$tahun)->get();
+        $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->select('id','urutan')->get();
         $data = [
             'master'=>$master,
-            'faktor'=>$faktor
+            'faktor'=>$faktor,
+            'tahun'=>$tahun
         ];
         return view('master.sub',$data);
     }
-    public function add(Request $req)
+    public function add(Request $req,$tahun)
     {
-        $count = count(Master::where('jenis','Sub')->get())+1;
+        $count = count(Master::where('jenis','Sub')->where('tahun',$tahun)->where('id_parent',$req->id_parent)->get())+1;
         $master = new Master();
         $master->nama = $req->nama;
         $master->id_parent = $req->id_parent;
@@ -29,6 +30,8 @@ class SubFactorController extends Controller
         $master->kuesioner = $req->kuesioner;
         $master->observasi = $req->observasi;
         $master->wawancara = $req->wawancara;
+        $master->skor = 0;
+        $master->tahun = $tahun;
         $master->isian = $req->isian;
         $master->skor = 0;
         $master->save();
@@ -37,7 +40,8 @@ class SubFactorController extends Controller
     public function edit($id)
     {
         $master = Master::find($id);
-        $faktor = Master::where('jenis','Faktor')->select('id','urutan')->get();
+        $tahun = $master->tahun;
+        $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->select('id','urutan')->get();
         $data = [
             'master'=>$master,
             'faktor'=>$faktor
@@ -55,12 +59,17 @@ class SubFactorController extends Controller
         $master->wawancara = $req->wawancara;
         $master->isian = $req->isian;
         $master->save();
-        return redirect('/subfaktor')->with('success','Berhasil');
+        $tahun = $master->tahun;
+        return redirect('/subfaktor/'.$tahun)->with('success','Berhasil');
     }
     public function delete($id)
     {
         $master = Master::find($id);
-        $master->delete();
-        return redirect()->back()->with('warning','Berhasil');
+        if ($master->skor == 0 && $master->dokumen_file == "" && $master->kuesioner_file == "" && $master->wawancara_file == "" && $master->observasi_file == "") {
+            $master->delete();
+            return redirect()->back()->with(['warning' => 'Pesan Berhasil']);
+        } else {
+            return redirect()->back()->with(['info' => 'Gagal Hapus']);
+        }
     }
 }

@@ -7,24 +7,27 @@ use App\Models\Master;
 
 class ParameterController extends Controller
 {
-    public function home()
+    public function home($tahun)
     {
-        $master = Master::where('jenis','Parameter')->get();
-        $indikator = Master::where('jenis','Indikator')->get();
+        $master = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
+        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
         $data = [
             'master'=>$master,
-            'indikator'=>$indikator
+            'indikator'=>$indikator,
+            'tahun'=>$tahun
         ];
         return view('master.parameter',$data);
     }
-    public function add(Request $req)
+    public function add(Request $req,$tahun)
     {
-        $count = count(Master::where('jenis','Parameter')->get())+1;
+        $count = count(Master::where('jenis','Parameter')->where('tahun',$tahun)->get())+1;
         $master = new Master();
         $master->urutan = $count;
         $master->nama = $req->nama;
         $master->jenis = 'Parameter';
         $master->bobot = $req->bobot;
+        $master->skor = 0;
+        $master->tahun = $tahun;
         $master->catatan = $req->catatan;
         $master->analisis = $req->analisis;
         $master->rekomendasi = $req->rekomendasi;
@@ -35,7 +38,8 @@ class ParameterController extends Controller
     public function edit($id)
     {
         $master = Master::find($id);
-        $indikator = Master::where('jenis','Indikator')->select('id','urutan')->get();
+        $tahun = $master->tahun;
+        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->select('id','urutan')->get();
         $data = [
             'master'=>$master,
             'indikator'=>$indikator
@@ -52,12 +56,18 @@ class ParameterController extends Controller
         $master->rekomendasi = $req->rekomendasi;
         $master->id_parent = $req->id_parent;
         $master->save();
-        return redirect('/parameter')->with('success','Berhasil');
+        $tahun = $master->tahun;
+        return redirect('/parameter/'.$tahun)->with('success','Berhasil');
     }
     public function delete($id)
     {
         $master = Master::find($id);
-        $master->delete();
-        return redirect()->back()->with('warning','Berhasil');
+        $child = Master::where('jenis','Faktor')->where('id_parent',$master->id)->get();
+        if (count($child) == 0) {
+            $master->delete();
+            return redirect()->back()->with(['warning' => 'Pesan Berhasil']);
+        } else {
+            return redirect()->back()->with(['info' => 'Gagal Hapus']);
+        }
     }
 }
