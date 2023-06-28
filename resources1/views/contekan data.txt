@@ -1,0 +1,18 @@
+Aspek : Nama (Aspek) (1. blabla), Bobot, Tertimbang, Catatan
+Indikator : Nama, Bobot, Tertimbang, Analisis, Rekomendasi, Catatan
+Parameter : Nama, Bobot, Tertimbang, Analisis, Rekomendasi, Catatan
+Faktor : Nama, Title, Catatan
+Sub : Nama, DKWO, skor, file, jenis_file jenis skor
+
+
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_master`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 'Arifin', 'moch.n.arifin@gmail.com', NULL, '$2y$10$K7.b4Ox/8vLbTWm8sk4Y5.dGjGUNuzSeuAvjlv6yOu/iCzv3gN9S.', NULL, NULL, NULL, '2023-05-20 08:25:33', '2023-05-20 08:25:33');
+
+
+Revisi design mas prim:
+button dikanan
+pemilihan background
+form login dengan border
+jarak plus button dengan nama aspekn
+nama aspek bolder

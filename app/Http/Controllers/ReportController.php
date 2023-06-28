@@ -148,11 +148,12 @@ class ReportController extends Controller
         }else{
             $total = $total/$max_a;
         }
-        $sub = Master::where('jenis','Sub')->where('tahun',$tahun)->get();
-        $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->get();
-        $parameter = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
-        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
         $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
+        // $aspek = DB::table('masters')->where('jenis','Aspek')->where('tahun',$tahun)->get();
+        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
+        $parameter = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
+        $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->get();
+        $sub = Master::where('jenis','Sub')->where('tahun',$tahun)->get();
 
         // return $sub;
         $data = [
@@ -164,6 +165,27 @@ class ReportController extends Controller
             'total'=>$total,
             'tahun'=>$tahun
         ];
+        // $indikator = [];
+        // $count_ind = 0;
+        // for ($i=0; $i < count($aspek); $i++) { 
+        //     $data = DB::table('masters')->where('id_parent',$aspek[$i]->id)->get()->toArray();
+        //     $count_ind = count($data);
+        //     for ($i1=0; $i1 < $count_ind; $i1++) {
+        //         array_push($indikator,$data[$i1]);
+        //     }
+        // }
+        // dd($indikator);
+        // return count($indikator);
+        // $parameter = [];
+        // $count_par = 0;
+        // for ($i=0; $i < count($indikator); $i++) { 
+        //     $data = DB::table('masters')->where('id_parent',$indikator[$i]->id)->get()->toArray();
+        //     $count_par = count($data);
+        //     for ($i1=0; $i1 < $count_par; $i1++) {
+        //         array_push($parameter,$data[$i1]);
+        //     }
+        // }
+        // return $parameter;
         return view('table',$data);
     }
     function each_value(Request $req,$id) {
@@ -195,7 +217,13 @@ class ReportController extends Controller
                             $randomString .= $characters[random_int(0, $charactersLength - 1)];
                         }
                         $filename = $randomString.'.'.$file->getClientOriginalExtension();//nama file
-                        $file->move(public_path('files'), $filename);//simpan file lokal dengan nama $filename
+                        // return storage_path();
+                        // if ($file->move(storage_path('files'), $filename)) {//simpan file lokal dengan nama $filename
+                        //     return "Berhasil";
+                        // }else{
+                        //     return "Gagal";
+                        // }
+                        $file->move(storage_path('files'), $filename);//simpan file lokal dengan nama $filename
                         $master->dokumen_file = $filename;
                         $master->save();
                     }

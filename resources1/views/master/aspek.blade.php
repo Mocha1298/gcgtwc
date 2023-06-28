@@ -1,8 +1,16 @@
 @extends('layout')
-@section('title', 'Data Sub')
-@section('sub', 'active')
+@section('title', 'Data Aspek')
+@section('aspek', 'active')
+@section('link1', '/')
+@section('d-aspek', '#')
+@section('d-indikator', '/indikator')
+@section('d-parameter', '/parameter')
+@section('d-faktor', '/faktor')
+@section('d-sub', '/sub')
+@section('link3', '/user')
+@section('link4', '/report')
 @section('greeting')
-    <h1>Unsur Pemenuhan <span class="tahun">({{$tahun}})</span></h1>
+    <h1>Aspek <span class="tahun">({{$tahun}})</span></h1>
 @endsection
 
 @section('css')
@@ -24,21 +32,6 @@
 
     <!-- RTL Css -->
     <link rel="stylesheet" href="../../assets/css/rtl.min.css" />
-    <style>
-        .form-check-input {
-            border-color: #00A7E6;
-
-            &:checked {
-                border-color: #00A7E6;
-                background-color: #00A7E6 !important;
-            }
-
-            &:focus {
-                border-color: #00A7E6 !important;
-                background-color: #fff;
-            }
-        }
-    </style>
 @endsection
 
 @section('script')
@@ -74,10 +67,14 @@
     <script>
         function cari() {
             var tahun = document.getElementById("tahun").value;
-            window.location.href = '/subfaktor/' + tahun;
+            window.location.href = '/aspek/' + tahun;
         }
     </script>
 @endsection
+
+@php
+    $romawi = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+@endphp
 
 @section('main')
     <div>
@@ -103,72 +100,27 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Tambah Sub Baru</h5>
+                                            <h5 class="modal-title" id="staticBackdropLabel">Tambah Aspek Baru</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/subfaktor/{{$tahun}}" method="post">
+                                            <form action="/aspek/{{$tahun}}" method="post">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="text" class="form-label">Pilih Faktor</label>
-                                                    <div class="form-group">
-                                                        <select name="id_parent" class="form-select"
-                                                            id="exampleFormControlSelect1" onchange="cek()">
-                                                            <option selected="" disabled="">Pilih Faktor</option>
-                                                            @foreach ($faktor as $item)
-                                                                <option value="{{ $item->id }}">Faktor {{ $item->urutan }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                    <label for="text" class="form-label">Nama Aspek</label>
+                                                    <input type="text" class="form-control" id="text"
+                                                        aria-describedby="text" placeholder="Nama Aspek" name="nama"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="text" class="form-label">Nama Sub</label>
-                                                    <input name="nama" type="text" class="form-control" id="text"
-                                                        aria-describedby="text" placeholder="Nama Sub">
+                                                    <label for="text" class="form-label">Bobot</label>
+                                                    <input type="text" class="form-control" id="text"
+                                                        aria-describedby="text" placeholder="Bobot" name="bobot" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="form-label" for="choices-single-default">Sistem
-                                                        Penilaian</label>
-                                                    <select class="form-select" data-trigger="" name="isian"
-                                                        id="choices-single-default">
-                                                        <option disabled value="">Pilih Salah Satu</option>
-                                                        <option value="2">2 Pilihan (0,1)</option>
-                                                        <option value="2">3 Pilihan (0,0.5,1)</option>
-                                                        <option value="5">5 Pilihan (0,0.25,0.5,0.75,1)</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="text" class="form-label">Eviden</label>
-                                                    <div class="form-check d-block">
-                                                        <input name="dokumen" class="form-check-input" type="checkbox"
-                                                            value="1" id="dokumen">
-                                                        <label class="form-check-label" for="dokumen">
-                                                            Dokumen
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-block">
-                                                        <input name="kuesioner" class="form-check-input" type="checkbox"
-                                                            value="1" id="kuesioner">
-                                                        <label class="form-check-label" for="kuesioner">
-                                                            Kuesioner
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-block">
-                                                        <input name="wawancara" class="form-check-input" type="checkbox"
-                                                            value="1" id="wawancara">
-                                                        <label class="form-check-label" for="wawancara">
-                                                            Wawancara
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-block">
-                                                        <input name="observasi" class="form-check-input" type="checkbox"
-                                                            value="1" id="observasi">
-                                                        <label class="form-check-label" for="observasi">
-                                                            Observasi
-                                                        </label>
-                                                    </div>
+                                                    <label for="text" class="form-label">Catatan</label>
+                                                    <textarea name="catatan" class="form-control" id="text" cols="30" rows="3"></textarea>
                                                 </div>
                                                 {{-- <div class="form-group">
                                                     <label for="text" class="form-label">Pilih Tahun</label>
@@ -232,67 +184,81 @@
                     </div>
                     <div class="card-body px-0">
                         <div class="table-responsive">
-                            <table id="datatable" class="table table-striped" data-toggle="data-table">
+                            <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
                                 <thead>
                                     <tr class="ligth">
                                         <th>#</th>
                                         <th>Nama</th>
-                                        <th>Parent</th>
-                                        <th>Eviden</th>
-                                        <th>Penilaian</th>
-                                        <th>Tahun</th>
+                                        <th>Bobot</th>
+                                        {{-- <th>Tahun</th> --}}
                                         <th style="min-width: 100px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($master as $item)
                                         <tr>
-                                            <td>{{ $item->urutan }}</td>
+                                            <td>{{ $romawi[$item->urutan - 1] }}</td>
                                             <td id="nama">{{ $item->nama }}</td>
-                                            <td>
-                                                @foreach ($faktor as $option)
-                                                    @if ($item->id_parent == $option->id)
-                                                        Faktor {{ $option->urutan }}
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                @if ($item->dokumen == true)
-                                                    <a style="border:none;background: #00A7E6;color:white"
-                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Dokumen" href="#">
-                                                        D
-                                                    </a>
-                                                @endif
-                                                @if ($item->kuesioner == true)
-                                                    <a style="border:none;background: #00A7E6;color:white"
-                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Kuesioner" href="#">
-                                                        K
-                                                    </a>
-                                                @endif
-                                                @if ($item->wawancara == true)
-                                                    <a style="border:none;background: #00A7E6;color:white"
-                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Wawancara" href="#">
-                                                        W
-                                                    </a>
-                                                @endif
-                                                @if ($item->observasi == true)
-                                                    <a style="border:none;background: #00A7E6;color:white"
-                                                        class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Observasi" href="#">
-                                                        O
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td>{{ $item->isian }} Pilihan</td>
-                                            <td>{{ $item->tahun }}</td>
+                                            <td>{{ $item->bobot }}</td>
+                                            {{-- <td>{{ $item->tahun }}</td> --}}
                                             <td>
                                                 <div class="flex align-items-center list-user-action">
-                                                    <a class="btn btn-sm btn-icon text-primary" data-bs-toggle="tooltip"
-                                                        href="/edit/subfaktor/{{ $item->id }}" aria-label="Edit"
-                                                        data-bs-original-title="Edit">
+                                                    <a class="btn btn-sm btn-icon text-info" data-bs-placement="top"
+                                                        title="Detail" data-bs-toggle="modal"
+                                                        data-bs-target="#detail{{ $item->id }}">
+                                                        <span class="btn-inner">
+                                                            <svg class="icon-32" width="32" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M16.334 2.75H7.665C4.644 2.75 2.75 4.889 2.75 7.916V16.084C2.75 19.111 4.634 21.25 7.665 21.25H16.333C19.364 21.25 21.25 19.111 21.25 16.084V7.916C21.25 4.889 19.364 2.75 16.334 2.75Z"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M15.9393 12.0129H15.9483" stroke="currentColor"
+                                                                    stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                                <path d="M11.9301 12.0129H11.9391" stroke="currentColor"
+                                                                    stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                                <path d="M7.92128 12.0129H7.93028" stroke="currentColor"
+                                                                    stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <!-- Modal Detail -->
+                                                    <div class="modal fade" id="detail{{ $item->id }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" style="display: none;"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Detail
+                                                                        Aspek {{ $item->urutan }}</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Catatan</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>{{ $item->catatan }}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        href="/edit/aspek/{{ $item->id }}" aria-label="Edit"
+                                                        data-bs-original-title="Edit" style="color: #00A7E6;">
                                                         <span class="btn-inner">
                                                             <svg class="icon-20" width="20" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,8 +277,8 @@
                                                         </span>
                                                     </a>
                                                     <a class="btn btn-sm btn-icon text-danger " data-bs-toggle="tooltip"
-                                                        aria-label="Delete" data-bs-original-title="Delete"
-                                                        onclick="hapus('subfaktor',{{ $item->id }})">
+                                                        onclick="hapus('aspek',{{ $item->id }})" aria-label="Delete"
+                                                        data-bs-original-title="Delete">
                                                         <span class="btn-inner">
                                                             <svg class="icon-20" width="20" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg"

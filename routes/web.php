@@ -40,12 +40,17 @@ Route::middleware('auth')->group(function () {
     //     ];
     //     return view('dashboard',$data);
     // })->middleware(['auth', 'verified'])->name('dashboard');
-});
-Route::get('/report/{tahun}','App\Http\Controllers\ReportController@index');
-Route::post('/summary/{id}', 'App\Http\Controllers\ReportController@each_value');
 
-Route::get('getdet/{id}/{type}','App\Http\Controllers\ReportController@getdet');
-Route::post('/summary/{type}/{id}', 'App\Http\Controllers\ReportController@note');
+    Route::get('/report/{tahun}','App\Http\Controllers\ReportController@index');
+    Route::post('/summary/{id}', 'App\Http\Controllers\ReportController@each_value');
+    
+    Route::get('getdet/{id}/{type}','App\Http\Controllers\ReportController@getdet');
+    Route::post('/summary/{type}/{id}', 'App\Http\Controllers\ReportController@note');
+
+
+    // ROUTE SUMMARY ASPEK
+    // Route::get('/aspek/{id}/{tahun}','App\Http\Controllers\ReportController@index');
+});
 Route::middleware('admin')->group(function (){
     // User
     Route::get('/user',[ProfileController::class, 'show'])->name('user');
@@ -86,6 +91,7 @@ Route::middleware('admin')->group(function (){
     // ROUTE FAKTOR end
     // ROUTE SUB start
         Route::get('/subfaktor/{tahun}','App\Http\Controllers\SubFactorController@home');
+        Route::get('/ajax/{tahun}','App\Http\Controllers\SubFactorController@ajax');
         Route::post('/subfaktor/{tahun}','App\Http\Controllers\SubFactorController@add');
         Route::get('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@edit');
         Route::post('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@update');
@@ -115,4 +121,49 @@ Route::get('/clear-cache', function(){
     // Artisan::call('clear:cache');
     Artisan::call('clear:view');
     Artisan::call('clear:config');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/coba_ajax',function () {
+    $aspek = Master::where('jenis','Aspek')->get();
+    $data = [
+        'aspek'=>$aspek
+    ];
+    return view('coba_ajax',$data);
+});
+// Route::get('/aspek/{id}','App\Http\Controllers\ReportController@index');
+Route::get('/get_aspek/{id}', function ($id) {
+    $indikator = DB::table('masters')->where('id_parent',$id)->get();
+    return $indikator;
 });

@@ -10,7 +10,7 @@
 @section('link3', '/user')
 @section('link4', '/report')
 @section('greeting')
-<a href="/report/2023" style="border:none;background:#00A7E6" class="mt-4 btn btn-danger d-block rounded text-light">Go to Summary</a>
+    <h1>Dashboard</h1>
 @endsection
 
 @section('css')

@@ -1,14 +1,6 @@
 @extends('layout')
 @section('title', 'Data Faktor')
 @section('faktor', 'active')
-@section('link1', '/')
-@section('d-aspek', '/aspek')
-@section('d-indikator', '/indikator')
-@section('d-parameter', '/parameter')
-@section('d-faktor', '#')
-@section('d-sub', '/sub')
-@section('link3', '/user')
-@section('link4', '/report')
 @section('greeting')
     <h1>Faktor <span class="tahun">({{$tahun}})</span></h1>
 @endsection
@@ -193,7 +185,7 @@
                     </div>
                     <div class="card-body px-0">
                         <div class="table-responsive">
-                            <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
+                            <table id="datatable" class="table table-striped" data-toggle="data-table">
                                 <thead>
                                     <tr class="ligth">
                                         <th>#</th>
