@@ -83,35 +83,6 @@
             }
         }
     </script>
-    <script>
-        function cek() {
-            var selectBox = document.getElementById("exampleFormControlSelect1");
-            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-            if (selectedValue == "Admin") {
-                document.getElementById("exampleFormControlSelect2").disabled = true;
-                document.getElementById("exampleFormControlSelect2").required = false;
-                document.getElementById('default').selected = true;
-                // console.log(selectBox);
-            } else {
-                document.getElementById("exampleFormControlSelect2").disabled = false;
-                document.getElementById("exampleFormControlSelect2").required = true;
-            }
-        }
-    </script>
-
-    @if (old('role') == 'User')
-        <script>
-            document.getElementById("exampleFormControlSelect2").disabled = false;
-            document.getElementById("exampleFormControlSelect2").required = true;
-        </script>
-    @endif
-    @if($errors->any())
-        <script>
-            $(function() {
-                $('#staticBackdrop-1').modal('show');
-            });
-        </script>
-    @endif
 @endsection
 
 @section('main')
@@ -121,107 +92,19 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3"
-                            data-bs-toggle="modal" data-bs-target="#staticBackdrop-1"
-                            style="border:none;background: #00A7E6;">
-                                <i class="btn-inner">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                </i>
-                                <span>New</span>
-                            </a>
-                            <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Tambah Aspek Baru</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/newuser" method="post">
-                                                @csrf
-                                                {{-- NAMA --}}
-                                                <div class="form-group">
-                                                    <label for="name" class="form-label">Nama</label>
-                                                    <input class="form-control" id="name" type="text" name="name"
-                                                        value="{{ old('name') }}" required autofocus autocomplete="name"
-                                                        placeholder="Nama">
-                                                    <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
-                                                </div>
-                                                {{-- EMAIL --}}
-                                                <div class="form-group">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input class="form-control" id="email" type="email" name="email"
-                                                        value="{{ old('email') }}" required placeholder="Email" @if ($errors->get('email'))
-                                                        style="border-color:red"
-                                                    @endif>
-                                                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
-                                                </div>
-                                                {{-- PASSWORD --}}
-                                                <div class="form-group">
-                                                    <label for="password">Password</label>
-                                                    <input type="password" class="form-control" id="password" name="password" required
-                                                        autocomplete="new-password" placeholder="Password" @if ($errors->get('password'))
-                                                        style="border-color:red"
-                                                    @endif>
-                                                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
-                                                </div>
-                                                {{-- CONFIRM --}}
-                                                <div class="form-group">
-                                                    <label for="password">Confirm Password</label>
-                                                    <input type="password" class="form-control" id="password_confirmation" type="password"
-                                                        name="password_confirmation" required autocomplete="new-password"
-                                                        placeholder="Confirm Password" />
-                                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
-                                                </div>
-                                                {{-- PILIH POSISI --}}
-                                                <div class="form-group">
-                                                    <label for="text" class="form-label">Pilih Posisi</label>
-                                                    <div class="form-group">
-                                                        <select class="form-select" id="exampleFormControlSelect1" onchange="cek()"
-                                                            name="role" required>
-                                                            <option selected disabled="">Pilih Posisi</option>
-                                                            @if (old('role') == 'Admin')
-                                                                <option value="Admin" selected>Admin</option>
-                                                            @else
-                                                                <option value="Admin">Admin</option>
-                                                            @endif
-                                                            @if (old('role') == 'User')
-                                                                <option value="User" selected>User</option>
-                                                            @else
-                                                                <option value="User">User</option>
-                                                            @endif
-                                                        </select>
-                                                        <x-input-error :messages="$errors->get('role')" class="mt-2 text-danger" />
-                                                    </div>
-                                                </div>
-                                                {{-- PILIH ASPEK --}}
-                                                <div class="form-group" id="aspek">
-                                                    <label for="text" class="form-label">Pilih Aspek</label>
-                                                    <div class="form-group">
-                                                        <select disabled class="form-select" id="exampleFormControlSelect2"
-                                                            name="id_master">
-                                                            <option id="default" selected="" disabled="">Pilih Aspek</option>
-                                                            @foreach ($aspek as $item)
-                                                                <option value="{{ $item->id }}">Aspek {{ $item->urutan }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="text-end mt-4 mb-4">
-                                                    <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="card-title">User List</h4>
                         </div>
+                        <a style="border:none;background: #00A7E6;" href="/newuser"
+                            class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3">
+                            <i class="btn-inner">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </i>
+                            <span>New</span>
+                        </a>
                     </div>
                     <div class="card-body px-0">
                         <div class="table-responsive">
@@ -240,7 +123,7 @@
                                         <tr>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
-                                            <td><span style="border:none;background: #00A7E6;" class="badge">{{ $item->role }}</span></td>
+                                            <td><span class="badge bg-primary">{{ $item->role }}</span></td>
                                             <td>
                                                 @if ($item->role == 'Admin')
                                                     All

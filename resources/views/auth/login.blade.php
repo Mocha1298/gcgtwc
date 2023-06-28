@@ -7,7 +7,7 @@
     <title>GCG | Login</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/gcg_ico.png" />
+    <link rel="shortcut icon" href="/logo.ico" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="/assets/css/core/libs.min.css" />
@@ -28,14 +28,7 @@
     <!-- RTL Css -->
     <link rel="stylesheet" href="/assets/css/rtl.min.css" />
 
-    <style>
-        .form-check-input{
-            border-color: #00A7E6;
-        }
-        .form-check-input:checked{
-            color: #00A7E6;
-        }
-    </style>
+
 </head>
 
 <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
@@ -51,29 +44,29 @@
         <section class="login-content">
             <div class="row m-0 align-items-center bg-white vh-100">
                 <div class="col-md-5 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-                    <img src="/edited.jpg" class="img-fluid gradient-main" alt="images">
+                    <img src="/mockup-background.jpg" class="img-fluid gradient-main" alt="images">
                 </div>
                 <div class="col-md-7">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="card d-flex justify-content-center mb-0 auth-card">
                                 <div class="card-body">
-                                    <a href="#" class="navbar-brand d-flex justify-content-center mb-3">
+                                    <a href="#" class="navbar-brand d-flex align-items-center mb-3">
                                         <!--Logo start-->
                                         <!--logo End-->
                                         <!--Logo start-->
                                         <div class="logo-main">
                                             <div class="logo-normal">
-                                                <img src="/GCG LOGIN.png" alt="" width="200px" srcset="">
+                                                <img src="/gcg_inline.jpg" alt="" width="150px" srcset="">
                                             </div>
                                             <div class="logo-mini">
-                                                <img src="/gcg_inline.png" alt="" width="80px" srcset="">
+                                                <img src="/gcg_inline.jpg" alt="" width="80px" srcset="">
                                             </div>
                                         </div>
                                         <!--logo End-->
                                     </a>
-                                    {{-- <h5 class="mb-2 text-center">Sign In</h5> --}}
-                                    <p style="font-size: 15px" class="text-center">Masukkan email dan password Anda.</p>
+                                    <h5 class="mb-2 text-center">Sign In</h5>
+                                    <p style="font-size: 15px" class="text-center">Login to start your work.</p>
                                     <form method="POST" action="{{ route('login') }}" style="font-size: 13px">
                                         <div class="row">
                                             @csrf
@@ -96,23 +89,22 @@
                                                 </div>
                                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                             </div>
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-12 d-flex justify-content-between">
                                                 <div class="form-check mb-3">
                                                     <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1">Ingat Saya</label>
+                                                    <label class="form-check-label" for="customCheck1">Remember
+                                                        Me</label>
                                                 </div>
+                                                @if (Route::has('password.request'))
+                                                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                                        href="{{ route('password.request') }}">
+                                                        {{ __('Forgot password?') }}
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary">Sign In</button>
-                                        </div>
-                                        <div class="col-lg-12 text-center mt-2">
-                                            @if (Route::has('password.request'))
-                                            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                                                href="{{ route('password.request') }}">
-                                                {{ __('Lupa Password?') }}
-                                            </a>
-                                        @endif
                                         </div>
                                     </form>
                                 </div>

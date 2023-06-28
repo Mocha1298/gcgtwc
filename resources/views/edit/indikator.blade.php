@@ -107,18 +107,6 @@
                                 value="{{ $master->bobot }}" step="0.001" required>
                         </div>
                         <div class="form-group">
-                            <label for="text" class="form-label">Sifat</label>
-                            <div class="form-group">
-                                <select class="form-select" id=""
-                                    name="keterangan" required>
-                                    <option @if ($master->keterangan == "Positif") selected @endif
-                                        value="Positif">Positif</option>
-                                    <option @if ($master->keterangan == "Negatif") selected @endif
-                                        value="Negatif">Negatif</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="text" class="form-label">Analisis</label>
                             <textarea name="analisis" class="form-control" id="text" cols="30" rows="3">{{ $master->analisis }}</textarea>
                         </div>
@@ -130,30 +118,6 @@
                             <label for="text" class="form-label">Catatan</label>
                             <textarea name="catatan" class="form-control" id="text" cols="30" rows="3">{{ $master->catatan }}</textarea>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="text" class="form-label">Pilih Tahun</label>
-                            <div class="form-group">
-                                <select class="form-select" id=""
-                                    name="tahun" required>
-                                    <option @if ($master->tahun == 2023) selected @endif
-                                        value="2023">2023</option>
-                                    <option @if ($master->tahun == 2024) selected @endif
-                                        value="2024">2024</option>
-                                    <option @if ($master->tahun == 2025) selected @endif
-                                        value="2025">2025</option>
-                                    <option @if ($master->tahun == 2026) selected @endif
-                                        value="2026">2026</option>
-                                    <option @if ($master->tahun == 2027) selected @endif
-                                        value="2027">2027</option>
-                                    <option @if ($master->tahun == 2028) selected @endif
-                                        value="2028">2028</option>
-                                    <option @if ($master->tahun == 2029) selected @endif
-                                        value="2029">2029</option>
-                                    <option @if ($master->tahun == 2030) selected @endif
-                                        value="2030">2030</option>
-                                </select>
-                            </div>
-                        </div> --}}
                         <div class="text-end mt-2">
                             <button type="submit" class="btn btn-primary"
                                 style="border:none;background: #00A7E6;">Save</button>

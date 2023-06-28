@@ -7,28 +7,24 @@ use App\Models\Master;
 
 class IndicatorController extends Controller
 {
-    public function home($tahun)
+    public function home()
     {
-        $master = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
-        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->select('id','urutan')->get();
+        $master = Master::where('jenis','Indikator')->get();
+        $aspek = Master::where('jenis','Aspek')->select('id','urutan')->get();
         $data = [
             'master'=>$master,
-            'aspek'=>$aspek,
-            'tahun'=>$tahun
+            'aspek'=>$aspek
         ];
         return view('master.indikator',$data);
     }
-    public function add(Request $req,$tahun)
+    public function add(Request $req)
     {
-        $count = count(Master::where('jenis','Indikator')->where('tahun',$tahun)->get())+1;
+        $count = count(Master::where('jenis','Indikator')->get())+1;
         $master = new Master();
         $master->urutan = $count;
         $master->nama = $req->nama;
-        $master->keterangan = $req->keterangan;
         $master->jenis = 'Indikator';
         $master->bobot = $req->bobot;
-        $master->skor = 0;
-        $master->tahun = $tahun;
         $master->catatan = $req->catatan;
         $master->analisis = $req->analisis;
         $master->rekomendasi = $req->rekomendasi;
@@ -39,8 +35,7 @@ class IndicatorController extends Controller
     public function edit($id)
     {
         $master = Master::find($id);
-        $tahun = $master->tahun;
-        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->select('id','urutan')->get();
+        $aspek = Master::where('jenis','Aspek')->select('id','urutan')->get();
         $data = [
             'master'=>$master,
             'aspek'=>$aspek
@@ -51,25 +46,18 @@ class IndicatorController extends Controller
     {
         $master = Master::find($id);
         $master->nama = $req->nama;
-        $master->keterangan = $req->keterangan;
         $master->bobot = $req->bobot;
         $master->catatan = $req->catatan;
         $master->analisis = $req->analisis;
         $master->rekomendasi = $req->rekomendasi;
         $master->id_parent = $req->id_parent;
         $master->save();
-        $tahun = $master->tahun;
-        return redirect('/indikator/'.$tahun)->with('success','Berhasil');
+        return redirect('/indikator')->with('success','Berhasil');
     }
     public function delete($id)
     {
         $master = Master::find($id);
-        $child = Master::where('jenis','Parameter')->where('id_parent',$master->id)->get();
-        if (count($child) == 0) {
-            $master->delete();
-            return redirect()->back()->with(['warning' => 'Pesan Berhasil']);
-        } else {
-            return redirect()->back()->with(['info' => 'Gagal Hapus']);
-        }
+        $master->delete();
+        return redirect()->back()->with('warning','Berhasil');
     }
 }

@@ -62,21 +62,6 @@
         form#detail_child input{
             color: black;
         }
-        .simple-tree-table-handler.simple-tree-table-icon{
-            margin-right: 10px;
-        }
-        a.btn-kotak{
-            width: 25px;
-            padding:0;
-            margin-right: 3px;
-        }
-        hr {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            border: 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        a.btn-kotak:focus{background-color:#0080b0;}
     </style>
 @endsection
 
@@ -120,10 +105,6 @@
         $('table').simpleTreeTable({
             opened: []
         });
-        function cari() {
-            var tahun = document.getElementById("tahun").value;
-            window.location.href = '/report/' + tahun;
-        }
         function showdet(id,type) {
             if (document.getElementById('detail_child')) {
                 document.getElementById('detail_child').remove();
@@ -153,45 +134,6 @@
                 }
             });
         }
-        function input(content,id) {
-            if (content == 'dokumen') {
-                $(".dokumen"+id).css({'filter':'brightness(85%)'})
-                $("#dokumen"+id).show();
-                $(".kuesioner"+id).css({'filter':'brightness(100%)'});
-                $(".wawancara"+id).css({'filter':'brightness(100%)'});
-                $(".observasi"+id).css({'filter':'brightness(100%)'});
-                $("#kuesioner"+id).hide();
-                $("#wawancara"+id).hide();
-                $("#observasi"+id).hide();
-            } if(content == 'kuesioner') {
-                $(".kuesioner"+id).css({'filter':'brightness(85%)'})
-                $("#kuesioner"+id).show();
-                $(".dokumen"+id).css({'filter':'brightness(100%)'});
-                $(".wawancara"+id).css({'filter':'brightness(100%)'});
-                $(".observasi"+id).css({'filter':'brightness(100%)'});
-                $("#dokumen"+id).hide();
-                $("#wawancara"+id).hide();
-                $("#observasi"+id).hide();
-            } if(content == 'wawancara') {
-                $(".wawancara"+id).css({'filter':'brightness(85%)'})
-                $("#wawancara"+id).show();
-                $(".kuesioner"+id).css({'filter':'brightness(100%)'});
-                $(".dokumen"+id).css({'filter':'brightness(100%)'});
-                $(".observasi"+id).css({'filter':'brightness(100%)'});
-                $("#kuesioner"+id).hide();
-                $("#dokumen"+id).hide();
-                $("#observasi"+id).hide();
-            } if(content == 'observasi') {
-                $(".observasi"+id).css({'filter':'brightness(85%)'})
-                $("#observasi"+id).show();
-                $(".kuesioner"+id).css({'filter':'brightness(100%)'});
-                $(".wawancara"+id).css({'filter':'brightness(100%)'});
-                $(".dokumen"+id).css({'filter':'brightness(100%)'});
-                $("#kuesioner"+id).hide();
-                $("#wawancara"+id).hide();
-                $("#dokumen"+id).hide();
-            }
-        }
     </script>
 @endsection
 
@@ -205,31 +147,6 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
                             <h4 class="card-title">Summary List</h4>
-                        </div>
-                        <div class="d-flex flex-row-reverse">
-                            <div class="p-2">
-                                <button style='border:none;background: #00A7E6;' onclick="cari()" class="btn btn-success">Go</button>
-                            </div>
-                            <div class="p-2">
-                                <select class="form-select" id="tahun" name="tahun" required>
-                                    <option @if (date("Y") == 2023 || $tahun == 2023 ) selected @endif
-                                        value="2023">2023</option>
-                                    <option @if (date("Y") == 2024 || $tahun == 2024 ) selected @endif
-                                        value="2024">2024</option>
-                                    <option @if (date("Y") == 2025 || $tahun == 2025 ) selected @endif
-                                        value="2025">2025</option>
-                                    <option @if (date("Y") == 2026 || $tahun == 2026 ) selected @endif
-                                        value="2026">2026</option>
-                                    <option @if (date("Y") == 2027 || $tahun == 2027 ) selected @endif
-                                        value="2027">2027</option>
-                                    <option @if (date("Y") == 2028 || $tahun == 2028 ) selected @endif
-                                        value="2028">2028</option>
-                                    <option @if (date("Y") == 2029 || $tahun == 2029 ) selected @endif
-                                        value="2029">2029</option>
-                                    <option @if (date("Y") == 2030 || $tahun == 2030 ) selected @endif
-                                        value="2030">2030</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -247,19 +164,9 @@
                                     @yield('table')
                                 </tbody>
                                 <tfoot>
-                                    @php
-                                        $warna = 'danger';
-                                        if ($total >= 80) {
-                                            $warna = 'success';
-                                        } elseif ($total < 80 and $total >= 60) {
-                                            $warna = 'warning';
-                                        } elseif ($total < 60 and $total >= 0) {
-                                            $warna = 'danger';
-                                        }
-                                    @endphp
                                     <tr>
                                         <td colspan="3"></td>
-                                        <td class="bg-{{$warna}} text-center text-light">{{ number_format($total, 1, '.', '') }}%
+                                        <td class="table-success text-center">{{ number_format($total, 1, '.', '') }}%
                                         </td>
                                     </tr>
                                 </tfoot>
