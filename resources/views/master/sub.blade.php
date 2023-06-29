@@ -2,7 +2,7 @@
 @section('title', 'Data Sub')
 @section('sub', 'active')
 @section('greeting')
-    <h1>Unsur Pemenuhan</h1>
+    <h1>Unsur Pemenuhan <span class="tahun">({{$tahun}})</span></h1>
 @endsection
 
 @section('css')
@@ -71,6 +71,12 @@
 
     <!-- App Script -->
     <script src="../../assets/js/hope-ui.js" defer></script>
+    <script>
+        function cari() {
+            var tahun = document.getElementById("tahun").value;
+            window.location.href = '/subfaktor/' + tahun;
+        }
+    </script>
 @endsection
 
 @section('main')
@@ -80,98 +86,147 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">List Unsur Pemenuhan</h4>
-                        </div>
-                        <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3"
-                            data-bs-toggle="modal" data-bs-target="#staticBackdrop-1"
-                            style="border:none;background: #00A7E6;">
-                            <i class="btn-inner">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                </svg>
-                            </i>
-                            <span>New</span>
-                        </a>
-                        <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Tambah Sub Baru</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/subfaktor" method="post">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="text" class="form-label">Pilih Faktor</label>
+                            <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3"
+                                data-bs-toggle="modal" data-bs-target="#staticBackdrop-1"
+                                style="border:none;background: #00A7E6;">
+                                <i class="btn-inner">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                </i>
+                                <span>New</span>
+                            </a>
+                            <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Tambah Sub Baru</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/subfaktor/{{$tahun}}" method="post">
+                                                @csrf
                                                 <div class="form-group">
-                                                    <select name="id_parent" class="form-select"
-                                                        id="exampleFormControlSelect1" onchange="cek()">
-                                                        <option selected="" disabled="">Pilih Faktor</option>
-                                                        @foreach ($faktor as $item)
-                                                            <option value="{{ $item->id }}">Faktor {{ $item->urutan }}
-                                                            </option>
-                                                        @endforeach
+                                                    <label for="text" class="form-label">Pilih Faktor</label>
+                                                    <div class="form-group">
+                                                        <select name="id_parent" class="form-select"
+                                                            id="exampleFormControlSelect1" onchange="cek()">
+                                                            <option selected="" disabled="">Pilih Faktor</option>
+                                                            @foreach ($faktor as $item)
+                                                                <option value="{{ $item->id }}">Faktor {{ $item->urutan }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text" class="form-label">Nama Sub</label>
+                                                    <input name="nama" type="text" class="form-control" id="text"
+                                                        aria-describedby="text" placeholder="Nama Sub">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="choices-single-default">Sistem
+                                                        Penilaian</label>
+                                                    <select class="form-select" data-trigger="" name="isian"
+                                                        id="choices-single-default">
+                                                        <option disabled value="">Pilih Salah Satu</option>
+                                                        <option value="2">2 Pilihan (0,1)</option>
+                                                        <option value="2">3 Pilihan (0,0.5,1)</option>
+                                                        <option value="5">5 Pilihan (0,0.25,0.5,0.75,1)</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="text" class="form-label">Nama Sub</label>
-                                                <input name="nama" type="text" class="form-control" id="text"
-                                                    aria-describedby="text" placeholder="Nama Sub">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="choices-single-default">Sistem
-                                                    Penilaian</label>
-                                                <select class="form-select" data-trigger="" name="isian"
-                                                    id="choices-single-default">
-                                                    <option disabled value="">Pilih Salah Satu</option>
-                                                    <option value="2">2 Pilihan (0,1)</option>
-                                                    <option value="5">5 Pilihan (0,0.25,0.5,0.75,1)</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="text" class="form-label">Eviden</label>
-                                                <div class="form-check d-block">
-                                                    <input name="dokumen" class="form-check-input" type="checkbox"
-                                                        value="1" id="dokumen">
-                                                    <label class="form-check-label" for="dokumen">
-                                                        Dokumen
-                                                    </label>
+                                                <div class="form-group">
+                                                    <label for="text" class="form-label">Eviden</label>
+                                                    <div class="form-check d-block">
+                                                        <input name="dokumen" class="form-check-input" type="checkbox"
+                                                            value="1" id="dokumen">
+                                                        <label class="form-check-label" for="dokumen">
+                                                            Dokumen
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check d-block">
+                                                        <input name="kuesioner" class="form-check-input" type="checkbox"
+                                                            value="1" id="kuesioner">
+                                                        <label class="form-check-label" for="kuesioner">
+                                                            Kuesioner
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check d-block">
+                                                        <input name="wawancara" class="form-check-input" type="checkbox"
+                                                            value="1" id="wawancara">
+                                                        <label class="form-check-label" for="wawancara">
+                                                            Wawancara
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check d-block">
+                                                        <input name="observasi" class="form-check-input" type="checkbox"
+                                                            value="1" id="observasi">
+                                                        <label class="form-check-label" for="observasi">
+                                                            Observasi
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="form-check d-block">
-                                                    <input name="kuesioner" class="form-check-input" type="checkbox"
-                                                        value="1" id="kuesioner">
-                                                    <label class="form-check-label" for="kuesioner">
-                                                        Kuesioner
-                                                    </label>
+                                                {{-- <div class="form-group">
+                                                    <label for="text" class="form-label">Pilih Tahun</label>
+                                                    <div class="form-group">
+                                                        <select class="form-select" id=""
+                                                            name="tahun" required>
+                                                            <option @if (date("Y") == 2023) selected @endif
+                                                                value="2023">2023</option>
+                                                            <option @if (date("Y") == 2024) selected @endif
+                                                                value="2024">2024</option>
+                                                            <option @if (date("Y") == 2025) selected @endif
+                                                                value="2025">2025</option>
+                                                            <option @if (date("Y") == 2026) selected @endif
+                                                                value="2026">2026</option>
+                                                            <option @if (date("Y") == 2027) selected @endif
+                                                                value="2027">2027</option>
+                                                            <option @if (date("Y") == 2028) selected @endif
+                                                                value="2028">2028</option>
+                                                            <option @if (date("Y") == 2029) selected @endif
+                                                                value="2029">2029</option>
+                                                            <option @if (date("Y") == 2030) selected @endif
+                                                                value="2030">2030</option>
+                                                        </select>
+                                                    </div>
+                                                </div> --}}
+                                                <div class="text-end mt-2">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="border:none;background: #00A7E6;">Save</button>
                                                 </div>
-                                                <div class="form-check d-block">
-                                                    <input name="wawancara" class="form-check-input" type="checkbox"
-                                                        value="1" id="wawancara">
-                                                    <label class="form-check-label" for="wawancara">
-                                                        Wawancara
-                                                    </label>
-                                                </div>
-                                                <div class="form-check d-block">
-                                                    <input name="observasi" class="form-check-input" type="checkbox"
-                                                        value="1" id="observasi">
-                                                    <label class="form-check-label" for="observasi">
-                                                        Observasi
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="text-end mt-2">
-                                                <button type="submit" class="btn btn-primary"
-                                                    style="border:none;background: #00A7E6;">Save</button>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <button style="border:none;background: #00A7E6;" onclick="cari()" class="btn btn-success">Go</button>
+                            </div>
+                            <div class="p-2">
+                                <select class="form-select" id="tahun" name="tahun" required="">
+                                    <option @if ($tahun == 2023) selected @endif
+                                    value="2023">2023</option>
+                                <option @if ($tahun == 2024) selected @endif
+                                    value="2024">2024</option>
+                                <option @if ($tahun == 2025) selected @endif
+                                    value="2025">2025</option>
+                                <option @if ($tahun == 2026) selected @endif
+                                    value="2026">2026</option>
+                                <option @if ($tahun == 2027) selected @endif
+                                    value="2027">2027</option>
+                                <option @if ($tahun == 2028) selected @endif
+                                    value="2028">2028</option>
+                                <option @if ($tahun == 2029) selected @endif
+                                    value="2029">2029</option>
+                                <option @if ($tahun == 2030) selected @endif
+                                    value="2030">2030</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -185,10 +240,11 @@
                                         <th>Parent</th>
                                         <th>Eviden</th>
                                         <th>Penilaian</th>
+                                        <th>Tahun</th>
                                         <th style="min-width: 100px">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     @foreach ($master as $item)
                                         <tr>
                                             <td>{{ $item->urutan }}</td>
@@ -231,6 +287,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $item->isian }} Pilihan</td>
+                                            <td>{{ $item->tahun }}</td>
                                             <td>
                                                 <div class="flex align-items-center list-user-action">
                                                     <a class="btn btn-sm btn-icon text-primary" data-bs-toggle="tooltip"
@@ -278,7 +335,18 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
+                                <tfoot>
+                                    <tr class="ligth">
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Parent</th>
+                                        <th>Eviden</th>
+                                        <th>Penilaian</th>
+                                        <th>Tahun</th>
+                                        <th style="min-width: 100px">Action</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

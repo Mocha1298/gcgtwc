@@ -1,22 +1,3 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
-
-
 @extends('layout')
 @section('title', 'Dashboard')
 @section('home', 'active')
@@ -29,7 +10,7 @@
 @section('link3', '/user')
 @section('link4', '/report')
 @section('greeting')
-    <a href="/report" class="mt-4 btn btn-danger d-block rounded">Go to Summary</a>
+    <a href="/report/{{date("Y")}}" style="border:none;background:#00A7E6" class="mt-4 btn btn-danger d-block rounded text-light">Go to Summary</a>
 @endsection
 
 @section('css')
