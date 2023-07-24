@@ -170,21 +170,21 @@
                         div.innerHTML += "<form action='/summary/" + e.type + "/" + id +
                             "' method='post' id='detail_child'><label class='mb-3'>Title : " + e.detail.nama +
                             "</label>\n<input type='hidden' name='_token' value='" + token +
-                            "'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><textarea name='catatan' rows='2' class='form-control' id='catatan'>" +
+                            "'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><textarea name='catatan' rows='2' class='form-control' id='catatan' maxlength='2000'>" +
                             e.detail.catatan +
-                            "</textarea></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
+                            "</textarea><small>Maksimal 2000 karakter</small></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
                     } else {
                         var div = document.getElementById("detail_information")
                         div.innerHTML += "<form action='/summary/" + e.type + "/" + id +
                             "' method='post' id='detail_child'><label class='mb-3'>Title : " + e.detail.nama +
                             "</label>\n<input type='hidden' name='_token' value='" + token +
-                            "'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><textarea name='catatan' rows='2' class='form-control' id='catatan'>" +
+                            "'><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Catatan:</label><div class='col-sm-9'><textarea name='catatan' rows='2' class='form-control' id='catatan' maxlength='2000'>" +
                             e.detail.catatan +
-                            "</textarea></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Analisis:</label><div class='col-sm-9'><textarea name='analisis' rows='2' class='form-control' id='analisis'>" +
+                            "</textarea><small>Maksimal 2000 karakter</small></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Analisis:</label><div class='col-sm-9'><textarea name='analisis' rows='2' class='form-control' id='analisis' maxlength='2000'>" +
                             e.detail.analisis +
-                            "</textarea></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Rekomendasi:</label><div class='col-sm-9'><textarea name='rekomendasi' rows='2' class='form-control' id='rekomendasi'>" +
+                            "</textarea></div></div><div class='form-group row'><label class='control-label col-sm-3 align-self-center mb-0' for=''>Rekomendasi:</label><div class='col-sm-9'><textarea name='rekomendasi' rows='2' class='form-control' id='rekomendasi' maxlength='2000'>" +
                             e.detail.rekomendasi +
-                            "</textarea></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
+                            "</textarea><small>Maksimal 2000 karakter</small></div></div><button type='submit' style='border:none;background: #00A7E6;' class='btn btn-success mt-3'>Submit</button></form>";
                     }
                 }
             });
