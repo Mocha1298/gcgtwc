@@ -182,7 +182,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body px-0">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
                                 <thead>

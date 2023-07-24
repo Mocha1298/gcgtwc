@@ -190,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body px-0">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="datatable" class="table table-striped" data-toggle="data-table">
                                 <thead>

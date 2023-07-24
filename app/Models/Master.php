@@ -10,5 +10,5 @@ class Master extends Model
     use HasFactory;
     protected $table = 'masters';
     protected $fillable = ['nama','detail','id_jenis'];
-    protected $hidden = ['id','created_by','update_at'];
+    protected $hidden = ['created_by','update_at'];
 }

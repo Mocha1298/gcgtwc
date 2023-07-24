@@ -24,9 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'App\Http\Controllers\ReportController@dashboard');
 });
 Route::get('/report/{tahun}','App\Http\Controllers\ReportController@index');
-Route::post('/summary/{id}', 'App\Http\Controllers\ReportController@each_value');
+// Route::post('/summary/{id}', 'App\Http\Controllers\ReportController@each_value');
+Route::post('/summary/{id}', 'App\Http\Controllers\ReportController@each_value2');
 
 Route::get('getdet/{id}/{type}','App\Http\Controllers\ReportController@getdet');
+Route::get('getfuk/{id}','App\Http\Controllers\ReportController@getfuk');
 Route::post('/summary/{type}/{id}', 'App\Http\Controllers\ReportController@note');
 
 
@@ -63,6 +65,7 @@ Route::middleware('admin')->group(function (){
     // ROUTE PARAMETER end
     // ROUTE FAKTOR start
         Route::get('/faktor/{tahun}','App\Http\Controllers\FactorController@home');
+        Route::get('/faktor/ajax/{tahun}','App\Http\Controllers\FactorController@ajax');
         Route::post('/faktor/{tahun}','App\Http\Controllers\FactorController@add');
         Route::get('/edit/faktor/{id}','App\Http\Controllers\FactorController@edit');
         Route::post('/edit/faktor/{id}','App\Http\Controllers\FactorController@update');
@@ -70,7 +73,7 @@ Route::middleware('admin')->group(function (){
     // ROUTE FAKTOR end
     // ROUTE SUB start
         Route::get('/subfaktor/{tahun}','App\Http\Controllers\SubFactorController@home');
-        Route::get('/ajax/{tahun}','App\Http\Controllers\SubFactorController@ajax');
+        Route::get('/subfaktor/ajax/{tahun}','App\Http\Controllers\SubFactorController@ajax');
         Route::post('/subfaktor/{tahun}','App\Http\Controllers\SubFactorController@add');
         Route::get('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@edit');
         Route::post('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@update');

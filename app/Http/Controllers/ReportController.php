@@ -148,28 +148,40 @@ class ReportController extends Controller
         }else{
             $total = $total/$max_a;
         }
-        $sub = Master::where('jenis','Sub')->where('tahun',$tahun)->get();
-        $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->get();
-        $parameter = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
-        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
-        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
+        if (Auth::user()->role == 'Admin') {
+            $sub = Master::where('jenis','Sub')->where('tahun',$tahun)->get();
+            $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->get();
+            $parameter = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
+            $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
+            $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
 
-        // return $sub;
-        $data = [
-            'aspek'=>$aspek,
-            'indikator'=>$indikator,
-            'parameter'=>$parameter,
-            'faktor'=>$faktor,
-            'sub'=>$sub,
-            'total'=>$total,
-            'tahun'=>$tahun
-        ];
+            $data = [
+                'aspek'=>$aspek,
+                'indikator'=>$indikator,
+                'parameter'=>$parameter,
+                'faktor'=>$faktor,
+                'sub'=>$sub,
+                'total'=>$total,
+                'tahun'=>$tahun
+            ];
+        }else{
+            $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
+            
+            $data = [
+                'aspek'=>$aspek,
+                'total'=>$total,
+                'tahun'=>$tahun
+            ];
+        }
         return view('table',$data);
     }
     function each_value(Request $req,$id) {
-        $ids = DB::table('masters')->select('id')->where('id_parent',$id)->get();
+        return $req;
+        $ids = Master::select('id','tahun')->where('id_parent',$id)->get();
+        // return $ids;
         $count = count($ids);
         for($i = 0;$i < $count;$i++){
+            // return $ids[$i];
             $master = Master::find($ids[$i]->id);
             if($master->dokumen == 1){
                 if ($req->all('dokumen'.$ids[$i]->id)['dokumen'.$ids[$i]->id] != null) {
@@ -294,11 +306,15 @@ class ReportController extends Controller
                     }
                 }
             }
+            // return $ids[$i];
             $master = Master::find($ids[$i]->id);
-            $tahun = $master->tahun;
-            $master->skor = $req->skor[$ids[$i]->id];
+            // return $master;
+            $id_field = $master->id;
+            $master->skor = $req->skor[$id_field];
+            return $master;
             $master->save();
         }
+        // $tahun = $ids->tahun;
         return redirect('/report/'.$tahun)->with('success','Berhasil');
     }
     function getdet($id,$type) {
@@ -327,5 +343,15 @@ class ReportController extends Controller
             $detail->save();
             return redirect()->back()->with('success','Berhasil');
         }
+    }
+    function getfuk($id) {
+        $fuk = Master::where('id_parent',$id)
+        ->get();
+        return $fuk;
+    }
+    function each_value2(Request $req,$id){
+        return $req->dokumen_file;
+        $data = Master::find($id);
+        return $data;
     }
 }
