@@ -12,8 +12,10 @@ class FactorController extends Controller
     public function home($tahun)
     {
         $parameter = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
+        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
         $data = [
             'parameter'=>$parameter,
+            'aspek'=>$aspek,
             'tahun'=>$tahun
         ];
         return view('master.faktor',$data);
@@ -75,5 +77,9 @@ class FactorController extends Controller
         } else {
             return redirect()->back()->with(['info' => 'Gagal Hapus']);
         }
+    }
+    function get_faktor($id, $tahun) {
+        $faktor = Master::where('jenis','faktor')->where('tahun',$tahun)->where('id_parent',$id)->get();
+        return $faktor;
     }
 }

@@ -12,8 +12,10 @@ class SubFactorController extends Controller
     public function home($tahun)
     {
         $faktor = Master::where('jenis','Faktor')->where('tahun',$tahun)->select('id','urutan')->get();
+        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
         $data = [
             'faktor'=>$faktor,
+            'aspek'=>$aspek,
             'tahun'=>$tahun
         ];
         return view('master.sub',$data);
@@ -75,7 +77,7 @@ class SubFactorController extends Controller
         $tahun = $master->tahun;
         return redirect('/subfaktor/'.$tahun)->with('success','Berhasil');
     }
-    public function delete($id)
+    public function delete($id,$tahun)
     {
         $master = Master::find($id);
         if ($master->skor == 0 && $master->dokumen_file == "" && $master->kuesioner_file == "" && $master->wawancara_file == "" && $master->observasi_file == "") {

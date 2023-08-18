@@ -55,6 +55,7 @@ Route::middleware('admin')->group(function (){
         Route::get('/edit/indikator/{id}','App\Http\Controllers\IndicatorController@edit');
         Route::post('/edit/indikator/{id}','App\Http\Controllers\IndicatorController@update');
         Route::get('/delete/indikator/{id}','App\Http\Controllers\IndicatorController@delete');
+        Route::get('/get_indikator/{id}/{tahun}','App\Http\Controllers\IndicatorController@get_indikator');
     // ROUTE INDIKATOR end
     // ROUTE PARAMETER start
         Route::get('/parameter/{tahun}','App\Http\Controllers\ParameterController@home');
@@ -62,6 +63,7 @@ Route::middleware('admin')->group(function (){
         Route::get('/edit/parameter/{id}','App\Http\Controllers\ParameterController@edit');
         Route::post('/edit/parameter/{id}','App\Http\Controllers\ParameterController@update');
         Route::get('/delete/parameter/{id}','App\Http\Controllers\ParameterController@delete');
+        Route::get('/get_parameter/{id}/{tahun}','App\Http\Controllers\ParameterController@get_parameter');
     // ROUTE PARAMETER end
     // ROUTE FAKTOR start
         Route::get('/faktor/{tahun}','App\Http\Controllers\FactorController@home');
@@ -70,6 +72,7 @@ Route::middleware('admin')->group(function (){
         Route::get('/edit/faktor/{id}','App\Http\Controllers\FactorController@edit');
         Route::post('/edit/faktor/{id}','App\Http\Controllers\FactorController@update');
         Route::get('/delete/faktor/{id}','App\Http\Controllers\FactorController@delete');
+        Route::get('/get_faktor/{id}/{tahun}','App\Http\Controllers\FactorController@get_faktor');
     // ROUTE FAKTOR end
     // ROUTE SUB start
         Route::get('/subfaktor/{tahun}','App\Http\Controllers\SubFactorController@home');
@@ -78,6 +81,7 @@ Route::middleware('admin')->group(function (){
         Route::get('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@edit');
         Route::post('/edit/subfaktor/{id}','App\Http\Controllers\SubFactorController@update');
         Route::get('/delete/subfaktor/{id}','App\Http\Controllers\SubFactorController@delete');
+        Route::get('/get_subfaktor/{id}/{tahun}','App\Http\Controllers\SubFactorController@get_subfaktor');
     // ROUTE SUB end
 });
 

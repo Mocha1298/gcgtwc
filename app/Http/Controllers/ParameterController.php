@@ -11,9 +11,11 @@ class ParameterController extends Controller
     {
         $master = Master::where('jenis','Parameter')->where('tahun',$tahun)->get();
         $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->get();
+        $aspek = Master::where('jenis','Aspek')->where('tahun',$tahun)->get();
         $data = [
             'master'=>$master,
             'indikator'=>$indikator,
+            'aspek'=>$aspek,
             'tahun'=>$tahun
         ];
         return view('master.parameter',$data);
@@ -69,5 +71,9 @@ class ParameterController extends Controller
         } else {
             return redirect()->back()->with(['info' => 'Gagal Hapus']);
         }
+    }
+    function get_parameter($id,$tahun) {
+        $parameter = Master::where('jenis','parameter')->where('tahun',$tahun)->where('id_parent',$id)->get();
+        return $parameter;
     }
 }

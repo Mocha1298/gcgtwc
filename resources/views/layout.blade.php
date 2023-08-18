@@ -495,6 +495,90 @@
                 }
             })
         }
+
+        function get_indikator(id, tahun) {
+            console.log(id);
+            $.ajax({
+                type: 'get',
+                url: '/get_indikator/' + id + '/' + tahun,
+                beforeSend: function() {
+                    swal.fire({
+                        html: '<h5>Sedang memuat Indikator</h5>',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                },
+                success: function(response) {
+                    $('#indikator').empty();
+                    $('#indikator').append('<option selected disabled value="">Pilih Indikator</option>');
+                    $.each(response, function(index, response) {
+                        $('#indikator').append('<option value="' + response.id + '"> Indikator ' +
+                            response.urutan +
+                            '</option>');
+                    })
+                    Swal.close()
+                }
+            });
+        }
+
+        function get_parameter(id, tahun) {
+            console.log(id);
+            $.ajax({
+                type: 'get',
+                url: '/get_parameter/' + id + '/' + tahun,
+                beforeSend: function() {
+                    swal.fire({
+                        html: '<h5>Sedang memuat Parameter</h5>',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                },
+                success: function(response) {
+                    $('#parameter').empty();
+                    $('#parameter').append('<option selected disabled value="">Pilih Parameter</option>');
+                    $.each(response, function(index, response) {
+                        $('#parameter').append('<option value="' + response.id + '"> Parameter ' +
+                            response.urutan +
+                            '</option>');
+                    })
+                    Swal.close()
+                }
+            });
+        }
+
+        function get_faktor(id, tahun) {
+            console.log(id);
+            $.ajax({
+                type: 'get',
+                url: '/get_faktor/' + id + '/' + tahun,
+                beforeSend: function() {
+                    swal.fire({
+                        html: '<h5>Sedang memuat faktor</h5>',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                },
+                success: function(response) {
+                    $('#faktor').empty();
+                    $('#faktor').append('<option selected disabled value="">Pilih Faktor</option>');
+                    $.each(response, function(index, response) {
+                        $('#faktor').append('<option value="' + response.id + '"> Faktor ' +
+                            response.urutan +
+                            '</option>');
+                    })
+                    Swal.close()
+                }
+            });
+        }
     </script>
 </body>
 

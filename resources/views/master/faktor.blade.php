@@ -2,7 +2,7 @@
 @section('title', 'Data Faktor')
 @section('faktor', 'active')
 @section('greeting')
-    <h1>Faktor <span class="tahun">({{$tahun}})</span></h1>
+    <h1>Faktor <span class="tahun">({{ $tahun }})</span></h1>
 @endsection
 
 @section('css')
@@ -61,17 +61,26 @@
             var tahun = document.getElementById("tahun").value;
             window.location.href = '/faktor/' + tahun;
         }
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#datatable').DataTable({
-                processing:true,
-                serverSide:true,
-                ajax:"/faktor/ajax/{{$tahun}}",
-                columns:[
-                    {data: 'id'},
-                    {data: 'urutan'},
-                    {data: 'nama'},
-                    {data: 'parent'},
-                    {data: 'action'},
+                processing: true,
+                serverSide: true,
+                ajax: "/faktor/ajax/{{ $tahun }}",
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'urutan'
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'parent'
+                    },
+                    {
+                        data: 'action'
+                    },
                 ],
             })
         })
@@ -89,8 +98,8 @@
                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop-1"
                                 style="border:none;background: #00A7E6;">
                                 <i class="btn-inner">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                     </svg>
@@ -98,7 +107,8 @@
                                 <span>New</span>
                             </a>
                             <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;"
+                                aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -107,19 +117,41 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/faktor/{{$tahun}}" method="post">
+                                            <form action="/faktor/{{ $tahun }}" method="post">
                                                 @csrf
+                                                <div class="form-group">
+                                                    <label for="text" class="form-label">Pilih Aspek</label>
+                                                    <div class="form-group">
+                                                        <select name="aspek" class="form-select" id=""
+                                                            onchange="get_indikator(this.value,{{ $tahun }})"
+                                                            required>
+                                                            <option value="" selected disabled>Pilih Aspek
+                                                            </option>
+                                                            @foreach ($aspek as $option)
+                                                                <option value="{{ $option->id }}">Aspek
+                                                                    {{ $option->urutan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text" class="form-label">Pilih Indikator</label>
+                                                    <div class="form-group">
+                                                        <select name="id_parent" class="form-select" id="indikator"
+                                                            onchange="get_parameter(this.value,{{ $tahun }})"
+                                                            required>
+                                                            <option value="" selected disabled>Pilih Indikator
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="text" class="form-label">Pilih Parameter</label>
                                                     <div class="form-group">
-                                                        <select name="id_parent" class="form-select"
-                                                            id="exampleFormControlSelect1" onchange="cek()" required>
-                                                            <option value="" selected disabled="">Pilih Parameter
+                                                        <select name="id_parent" class="form-select" id="parameter"
+                                                            required>
+                                                            <option value="" selected disabled>Pilih Parameter
                                                             </option>
-                                                            @foreach ($parameter as $option)
-                                                                <option value="{{ $option->id }}">Parameter
-                                                                    {{ $option->urutan }}</option>
-                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -130,8 +162,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="text" class="form-label">Keterangan</label>
-                                                    <input name="keterangan" type="text" class="form-control" id="text"
-                                                        aria-describedby="text" placeholder="Keterangan">
+                                                    <input name="keterangan" type="text" class="form-control"
+                                                        id="text" aria-describedby="text" placeholder="Keterangan">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="text" class="form-label">Catatan</label>
@@ -142,21 +174,21 @@
                                                     <div class="form-group">
                                                         <select class="form-select" id=""
                                                             name="tahun" required>
-                                                            <option @if (date("Y") == 2023) selected @endif
+                                                            <option @if (date('Y') == 2023) selected @endif
                                                                 value="2023">2023</option>
-                                                            <option @if (date("Y") == 2024) selected @endif
+                                                            <option @if (date('Y') == 2024) selected @endif
                                                                 value="2024">2024</option>
-                                                            <option @if (date("Y") == 2025) selected @endif
+                                                            <option @if (date('Y') == 2025) selected @endif
                                                                 value="2025">2025</option>
-                                                            <option @if (date("Y") == 2026) selected @endif
+                                                            <option @if (date('Y') == 2026) selected @endif
                                                                 value="2026">2026</option>
-                                                            <option @if (date("Y") == 2027) selected @endif
+                                                            <option @if (date('Y') == 2027) selected @endif
                                                                 value="2027">2027</option>
-                                                            <option @if (date("Y") == 2028) selected @endif
+                                                            <option @if (date('Y') == 2028) selected @endif
                                                                 value="2028">2028</option>
-                                                            <option @if (date("Y") == 2029) selected @endif
+                                                            <option @if (date('Y') == 2029) selected @endif
                                                                 value="2029">2029</option>
-                                                            <option @if (date("Y") == 2030) selected @endif
+                                                            <option @if (date('Y') == 2030) selected @endif
                                                                 value="2030">2030</option>
                                                         </select>
                                                     </div>
@@ -173,26 +205,19 @@
                         </div>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
-                                <button style="border:none;background: #00A7E6;" onclick="cari()" class="btn btn-success">Go</button>
+                                <button style="border:none;background: #00A7E6;" onclick="cari()"
+                                    class="btn btn-success">Go</button>
                             </div>
                             <div class="p-2">
                                 <select class="form-select" id="tahun" name="tahun" required="">
-                                    <option @if ($tahun == 2023) selected @endif
-                                    value="2023">2023</option>
-                                <option @if ($tahun == 2024) selected @endif
-                                    value="2024">2024</option>
-                                <option @if ($tahun == 2025) selected @endif
-                                    value="2025">2025</option>
-                                <option @if ($tahun == 2026) selected @endif
-                                    value="2026">2026</option>
-                                <option @if ($tahun == 2027) selected @endif
-                                    value="2027">2027</option>
-                                <option @if ($tahun == 2028) selected @endif
-                                    value="2028">2028</option>
-                                <option @if ($tahun == 2029) selected @endif
-                                    value="2029">2029</option>
-                                <option @if ($tahun == 2030) selected @endif
-                                    value="2030">2030</option>
+                                    <option @if ($tahun == 2023) selected @endif value="2023">2023</option>
+                                    <option @if ($tahun == 2024) selected @endif value="2024">2024</option>
+                                    <option @if ($tahun == 2025) selected @endif value="2025">2025</option>
+                                    <option @if ($tahun == 2026) selected @endif value="2026">2026</option>
+                                    <option @if ($tahun == 2027) selected @endif value="2027">2027</option>
+                                    <option @if ($tahun == 2028) selected @endif value="2028">2028</option>
+                                    <option @if ($tahun == 2029) selected @endif value="2029">2029</option>
+                                    <option @if ($tahun == 2030) selected @endif value="2030">2030</option>
                                 </select>
                             </div>
                         </div>

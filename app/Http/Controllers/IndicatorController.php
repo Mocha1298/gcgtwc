@@ -72,4 +72,8 @@ class IndicatorController extends Controller
             return redirect()->back()->with(['info' => 'Gagal Hapus']);
         }
     }
+    function get_indikator($id,$tahun) {
+        $indikator = Master::where('jenis','Indikator')->where('tahun',$tahun)->where('id_parent',$id)->select('id','urutan')->get();
+        return $indikator;
+    }
 }
